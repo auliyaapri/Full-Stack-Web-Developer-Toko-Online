@@ -1,0 +1,54 @@
+  
+
+
+.navbar-store {
+    padding-top: 15px;
+
+    @include media-breakpoint-down(md) {
+        background: #fff !important;
+
+    }
+
+    .nav-item {
+        .nav-link {
+            @include media-breakpoint-up(lg) {
+                margin-left: 10px;
+                margin-right: 10px;
+
+            }
+        }
+    }
+
+    .profile-picture {
+        max-height: 45px;
+    }
+
+    .card-badge {
+        display: inline-block;
+        min-width: 2em;
+        padding: 0.3em;
+        border-radius: 50%;
+        font-size: 10px;
+        text-align: center;
+        background-color: #29a867;
+        color: #fefefe;
+        margin-left: -10px;
+    }
+
+}
+
+.navbar {
+    background-color: transparent;
+    /* Ubah latar belakang navbar menjadi transparan */
+    transition: background-color 1.6s ease-in-out;
+    /* Transisi untuk perubahan latar belakang */
+}
+
+
+.navbar.sticky {
+    background-color: #ffffff;
+    /* Ketika navbar menjadi sticky, latar belakangnya menjadi putih */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: 1.6s ease-in-out;
+    /* Efek bayangan untuk memberikan tampilan yang lebih menonjol */
+}
