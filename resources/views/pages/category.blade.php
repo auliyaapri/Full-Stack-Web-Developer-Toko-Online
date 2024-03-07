@@ -12,7 +12,7 @@ Store Category Page
     <div class="container">
         <div class="row">
             <div class="col-12" data-aos="fade-up">
-                <h5>All Categories SDSDSD</h5>
+                <h5>All Categories</h5>
             </div>
         </div>
 
@@ -50,7 +50,15 @@ Store Category Page
   <div class="container">
       <div class="row">
           <div class="col-12" data-aos="fade-up">
-              <h5>New Products</h5>
+            @php
+            $categorySlug = request()->segment(count(request()->segments()));
+        @endphp
+        
+        <h5>All Products {{ ucfirst($categorySlug) }} </h5>
+        
+
+
+
           </div>
       </div>
       <div class="row">

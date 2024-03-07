@@ -1810,7 +1810,7 @@ pre code {
   font-weight: 400;
   line-height: 1.5;
   color: #495057;
-  background-color: #fff;
+  /* background-color: #fff; */
   background-clip: padding-box;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
@@ -9209,7 +9209,7 @@ footer p {
 }
 
 .form-control {
-  background: #F3F3F3;
+  /* background: #F3F3F3; */
 }
 
 .navbar-store {

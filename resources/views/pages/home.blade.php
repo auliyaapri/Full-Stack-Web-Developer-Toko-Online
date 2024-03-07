@@ -83,28 +83,54 @@ Store Home Page
             @php $incrementCategory = 0; @endphp
 
             @forelse ($products as $product)
-                {{-- Loop melalui setiap produk --}}
-                @foreach ($product->galleries as $gallery) {{-- galleries dapet dari model product relasi kaka --}}                    
-                <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $incrementCategory }}">
-                        
-                        <a href="{{ route('detail', $product->slug) }}" class="component-products d-block">
-                            <div class="products-thumbnail">
-                                <div class="products-image" style="background-image: url('{{ Storage::url($product->galleries->first()->photos) }}');"></div>
-                            </div>
-                            <div class="products-text">{{ $product->name }}</div>                            
-                          <div class="products-price">Rp. {{ number_format($product->price, 0, ',', '.') }}</div>
+            {{-- Loop melalui setiap produk --}}
+            @foreach ($product->galleries as $gallery) {{-- galleries dapet dari model product relasi kaka --}}
+            <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $incrementCategory }}">
 
-                        </a>
-                    </div>      
-                    @php $incrementCategory += 100; @endphp
-                    @break 
-                @endforeach                
+                <a href="{{ route('detail', $product->slug) }}" class="component-products d-block">
+                    <div class="products-thumbnail">
+                        <div class="products-image"
+                            style="background-image: url('{{ Storage::url($product->galleries->first()->photos) }}')">
+                        </div>
+                    </div>
+                    <div class="products-text">{{ $product->name }}</div>
+                    <div class="products-price">Rp. {{ number_format($product->price, 0, ',', '.') }}</div>
+
+                </a>
+            </div>
+            @php $incrementCategory += 100; @endphp
+            @break
+            @endforeach
             @empty
             @endforelse
         </div>
-        
+
     </div>
 </section>
 <!-- END STORE NEW PRODUCT -->
+
+
+
+
+
+
+
+
+
+@if (Session::has('success'))
+<script>
+    // Fungsi untuk menampilkan Sweet Alert saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses!',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 3000
+        });
+    });
+</script>
+@endif
+
 
 @endsection
