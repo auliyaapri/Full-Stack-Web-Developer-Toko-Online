@@ -16,8 +16,8 @@
         <li class="nav-item">
           <a class="nav-link {{ request()->is('categories') ? 'active' : '' }}" href="{{ url('categories') }}">Categories</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Products</a>
+        <li class="nav-item">          
+          <a class="nav-link {{ request()->is('products') ? 'active' : '' }}" href="{{ url('products') }}">Products</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Rewards</a>

@@ -35,7 +35,10 @@
           
           <a href="{{ route('dashboard-settings-store') }}" class="list-group-item list-group-item-action {{ request()->is('dashboard/settings*') ? 'active' : '' }}">Store Settings</a>          
           <a href="{{ route('dashboard-settings-account') }}" class="list-group-item list-group-item-action {{ request()->is('dashboard/account*') ? 'active' : '' }}">My Account</a>
-          <a href="{{ route('logout') }}" class="list-group-item list-group-item-action"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log out</a>
+          <a class="dropdown-item" href="{{ route('logout') }}"
+          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+          Logout
+       </a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
         </form>
@@ -64,15 +67,27 @@
                   <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
                     data-bs-toggle="dropdown">
                     <!-- <img src="images/icon-user.png" alt="" class="me-2 profile-picture"> -->
-                    <img src="/images/icon-user.png" alt="" class="me-2 profile-picture" />
+                    {{-- <img src="/images/icon-user.png" alt="" class="me-2 profile-picture" /> --}}
+                    {{-- <img src="/images/icon-user.png" alt="" class="me-2 profile-picture" /> --}}
+                    <img src="{{ Storage::url($user->image_profile) }}" alt="Gambar Profil" class="img-fluid rounded-circle me-2" style="width: 45px; height: 45px; border-radius: 50%;">
+                    {{-- class="img-fluid rounded-circle" style="width: 200px; height: 200px;"> --}}
+
+                    
                     Hi, {{Auth::user()->name}}
                   </a>
                   <div class="dropdown-menu">
-                    <a href="dashboard.html" class="dropdown-item">Dashboard</a>
-                    <a href="dashboard-account.html" class="dropdown-item">Settings</a>
+                    <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
+                    {{-- <a href="{{ route('dashboard-settings-account') }}" class="dropdown-item">Settings</a> --}}
                     <div class="dropdown-divider"></div>
-                    <a href="/" class="dropdown-item">Logout</a>
-                  </div>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                           Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                  
                 </li>
                 <li class="nav-item d-none d-lg-block">
                   <a href="#" class="nav-link d-lg-inline-block mt-2">
@@ -102,7 +117,10 @@
     </div>
   </div>
 
-
+<!-- Form Logout -->
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+  @csrf
+</form>
   @stack('prepand-script')  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

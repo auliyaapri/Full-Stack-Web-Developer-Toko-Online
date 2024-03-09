@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
+
 
 class RegisterController extends Controller
 {
@@ -102,5 +104,11 @@ class RegisterController extends Controller
     {
         return User::where('email', $request->email)->count() > 0 ? 'Unavailable' :"Available" ;
     }
+    protected function registered(Request $request, $user)
+{
+    Session::flash('success', 'Anda berhasil mendaftar.');
+    return redirect($this->redirectPath());
+}
+
     
 }

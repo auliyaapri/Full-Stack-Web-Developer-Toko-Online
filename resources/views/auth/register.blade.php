@@ -164,58 +164,53 @@ Store Home Page
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
     // Menggunakan plugin Vue Toasted
-Vue.use(Toasted);
+    Vue.use(Toasted);
 
-// Membuat instance Vue dengan nama "register"
-var register = new Vue({
-    el: "#register", // Menentukan elemen HTML yang akan dimanipulasi oleh Vue
-    mounted() {
-        AOS.init(); // Menginisialisasi library AOS untuk animasi
-    },
-    methods: {
-        checkForEmailAvailability() {
-            // Method untuk memeriksa ketersediaan email
-            axios.get('{{ route('api-register-check') }}', { // Melakukan permintaan GET ke endpoint 'api-register-check'
-                params: { // Parameter yang dikirimkan dalam permintaan
-                    email: this.email // Mengirimkan nilai email dari input form
-                }
-            })
-            .then(response => { // Menangani respons dari permintaan
-                // Menentukan pesan toast berdasarkan respons dari server
-                const message = response.data === 'Available' ? 'Email anda tersedia! Silahkan lanjut langkah selanjutnya!' : 'Maaf, tampaknya email sudah terdaftar pada sistem kami.';
-                
-                // Menentukan jenis toast berdasarkan respons dari server
-                const type = response.data === 'Available' ? 'success' : 'error';
-                
-                // Menampilkan pesan toast dengan menggunakan Vue Toasted
-                this.$toasted[type](message, {
-                    position: "top-center", // Menentukan posisi toast
-                    className: "rounded", // Menentukan kelas CSS untuk styling toast
-                    duration: 5000, // Menentukan durasi tampilan toast
+    // Membuat instance Vue dengan nama "register"
+    var register = new Vue({
+        el: "#register", // Menentukan elemen HTML yang akan dimanipulasi oleh Vue
+        data() {
+            return {
+                name: "Angga Hazza Sett",
+                email: "kamujagoan@bwa.id",
+                is_store_open: true,
+                store_name: "",
+                email_unavailable: false
+            }
+        },
+        mounted() {
+            AOS.init(); // Menginisialisasi library AOS untuk animasi
+        },
+        methods: {
+            checkForEmailAvailability() {
+                // Method untuk memeriksa ketersediaan email
+                axios.get('URL_AKTUAL_ANDA', { // Ganti 'URL_AKTUAL_ANDA' dengan URL aktual dari endpoint API Anda
+                    params: { // Parameter yang dikirimkan dalam permintaan
+                        email: this.email // Mengirimkan nilai email dari input form
+                    }
+                })
+                .then(response => { // Menangani respons dari permintaan
+                    // Menentukan pesan toast berdasarkan respons dari server
+                    const message = response.data === 'Available' ? 'Email anda tersedia! Silahkan lanjut langkah selanjutnya!' : 'Maaf, tampaknya email sudah terdaftar pada sistem kami.';
+                    
+                    // Menentukan jenis toast berdasarkan respons dari server
+                    const type = response.data === 'Available' ? 'success' : 'error';
+                    
+                    // Menampilkan pesan toast dengan menggunakan Vue Toasted
+                    this.$toastedtype;
+                    
+                    // Mengubah nilai variabel email_unavailable berdasarkan respons dari server
+                    this.email_unavailable = response.data !== 'Available';
+                    
+                    // Menampilkan data respons pada konsol browser
+                    console.log(response.data);
+                })
+                .catch(error => { // Menangani kesalahan jika terjadi
+                    console.error(error); // Menampilkan pesan kesalahan pada konsol browser
                 });
-                
-                // Mengubah nilai variabel email_unavailable berdasarkan respons dari server
-                this.email_unavailable = response.data !== 'Available';
-                
-                // Menampilkan data respons pada konsol browser
-                console.log(response.data);
-            })
-            .catch(error => { // Menangani kesalahan jika terjadi
-                console.error(error); // Menampilkan pesan kesalahan pada konsol browser
-            });
-        }
-    },
-});
-
-      data() {
-          return {
-              name: "Angga Hazza Sett",
-              email: "kamujagoan@bwa.id",
-              is_store_open: true,
-              store_name: "",
-              email_unavailable: false
-          }
-      },
+            }
+        },
     });
 </script>
+
 @endpush

@@ -45,7 +45,7 @@ Product Gallery
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">Foto Product</label>
-                                            <input type="file" name="photos" class="form-control" required>
+                                            <input type="file" name="photos" class="form-control" >
                                         </div>
                                     </div>
                                     

@@ -34,6 +34,9 @@ Route::post('/logout', [App\Http\Controllers\Auth\LogoutController::class, 'logo
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+// === PRODUCT ===
+Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
+
 Route::get('/categories', [App\Http\Controllers\CategoryController::class, 'index'])->name('categories');
 Route::get('/categories/{id}', [App\Http\Controllers\CategoryController::class, 'detail'])->name('categories-detail');
 

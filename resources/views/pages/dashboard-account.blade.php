@@ -23,7 +23,7 @@ Store Dashboard
                                     <div class="col-md-6">
                                         <!-- Name and email -->
                                         <div class="form-group">
-                                            <label for="addressOne">Your Nssame</label>
+                                            <label for="addressOne">Your Name</label>
                                             <input type="text" class="form-control" id="name" name="name"
                                                 value="{{$user->name}}">
                                         </div>
@@ -59,13 +59,17 @@ Store Dashboard
                                             <label for="provinces_id">Province</label>
                                             
                                             <select name="provinces_id" id="provinces_id" class="form-select"
-                                                v-model="provinces_id" v-if="provinces">
-                                                
+                                                v-model="provinces_id" v-if="provinces">                                                
                                                 <option v-for="province in provinces" :value="province.id">@{{ province.name }}</option>
                                             </select>
                                             <select v-else class="form-control"></select>
-                                            {{-- {{$user->regencies_id}} --}}
+                                            
                                         </div>
+                                        <h1 v-for="province in provinces" :key="province.id" v-if="province.id === {{$user->provinces_id}}">
+                                            @{{ province.name }}
+                                        </h1>
+                                        
+                                        <h1>{{$user->provinces_id}}</h1>
                                     </div>
                                     <!-- City -->
                                     <div class="col-md-4">
@@ -95,22 +99,25 @@ Store Dashboard
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="phone_number">Mobile</label>
-                                            <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{$user->country}}">
+                                            <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{$user->phone_number}}">
                                         </div>
                                     </div>
-
-
+                                    
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="image_profile">Ganti Profile</label>
+                                            <input type="file" class="form-control" id="image_profile" name="image_profile">
+                                            <img src="{{ Storage::url($user->image_profile) }}" alt="Gambar Profil" class="img-fluid mt-3" style="max-width: 200px;">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12 text-right">
                                         <button class="btn btn-success w-25">Save Now</button>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </form>
                 </div>
             </div>

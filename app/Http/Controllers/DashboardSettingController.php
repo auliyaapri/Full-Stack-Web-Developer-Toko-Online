@@ -12,31 +12,45 @@ class DashboardSettingController extends Controller
     {
         $user = Auth::user();
         $categories = Category::all();
-        return view('pages.dashboard-settings',[
+        return view('pages.dashboard-settings', [
             'user' => $user,
             'categories' => $categories
         ]);
-
     }
-    
+
     public function account()
     {
         $user = Auth::user();
-        return view('pages.dashboard-account',[
-            'user' => $user            
+        return view('pages.dashboard-account', [
+            'user' => $user
         ]);
     }
 
 
 
+
+    // public function update(Request $request, $redirect)
+    // {
+    //     $data = $request->all();
+    //     $item = Auth::user();
+    //     $data['image_profile'] = $request->file('image_profile')->update('assets/profile_image', 'public');
+
+    //     $item->update($data);
+
+    //     return redirect()->route($redirect);
+    // }
 
     public function update(Request $request, $redirect)
     {
         $data = $request->all();
         $item = Auth::user();
+
+        if ($request->hasFile('image_profile')) {
+            $data['image_profile'] = $request->file('image_profile')->store('assets/image_profile', 'public');
+        }
+
         $item->update($data);
 
         return redirect()->route($redirect);
     }
-
 }

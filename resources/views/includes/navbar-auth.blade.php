@@ -16,11 +16,9 @@
             <a class="nav-link" href="categories.html">Categories</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Prosssssducts</a>
+            <a class="nav-link" href="#">Product</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Rewards</a>
-          </li>
+          
       </div>
     </div>
   </nav>

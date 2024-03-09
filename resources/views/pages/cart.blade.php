@@ -40,39 +40,50 @@ Store Cart Page
                 <td>Menu</td>
               </tr>
             </thead>
+
+            <tbody>
+
+            </tbody>
             <tbody>
               @php $totalPrice = 0 @endphp
-              @foreach ($carts as $cart)
-              <tr>
-                <!-- Product Image -->
-                <td style="width: 20%;">
-                  @if($cart->product->galleries)
-                  <img src="{{ Storage::url($cart->product->galleries->first()->photos) }}" alt="" class="cart-image" />
-                  @endif
-                </td>
-                <!-- Product Name & Seller -->
-                <td style="width: 35%;">
-                  <div class="product-title">{{ $cart->product->name }}</div>
-                  <div class="product-subtitle">by {{ $cart->product->user->store_name }}</div>
-                </td>
-                <!-- Product Price -->
-                <td style="width: 35%;">
-                  <div class="product-title">Rp. {{ number_format($cart->product->price, 0, ',', '.') }}</div>
-                </td>
-                <!-- Remove Button -->
-                <td style="width: 20%;">
-                  <form action="{{ route('cart-delete', $cart->id) }}" method="POST">
-                    @method('DELETE')
-                    @csrf
-                    <button class="btn btn-remove-cart" type="submit">
-                      Remove
-                    </button>
-                  </form>
-                </td>
-              </tr>
-              @php $totalPrice += $cart->product->price @endphp
-              @endforeach
-            </tbody>
+          
+              <!-- Memeriksa apakah ada data pada tabel cart -->
+              @if ($carts->isNotEmpty())
+                  @foreach ($carts as $cart)
+                      <tr>
+                          <!-- Product Image -->
+                          <td style="width: 20%;">
+                              @if ($cart->product->galleries)
+                                  <img src="{{ Storage::url($cart->product->galleries->first()->photos) }}" alt="" class="cart-image" />
+                              @endif
+                          </td>
+                          <!-- Product Name & Seller -->
+                          <td style="width: 35%;">
+                              <div class="product-title">{{ $cart->product->name }}</div>
+                              <div class="product-subtitle">by {{ $cart->product->user->store_name }}</div>
+                          </td>
+                          <!-- Product Price -->
+                          <td style="width: 35%;">
+                              <div class="product-title">Rp. {{ number_format($cart->product->price, 0, ',', '.') }}</div>
+                          </td>
+                          <!-- Remove Button -->
+                          <td style="width: 20%;">
+                              <form action="{{ route('cart-delete', $cart->id) }}" method="POST">
+                                  @method('DELETE')
+                                  @csrf
+                                  <button class="btn btn-remove-cart" type="submit">Remove</button>
+                              </form>
+                          </td>
+                      </tr>
+                      @php $totalPrice += $cart->product->price @endphp
+                  @endforeach
+              @else
+                  <tr>
+                      <td colspan="4" class="text-center py-5">No items in cart.</td>
+                  </tr>
+              @endif
+          </tbody>
+          
           </table>
         </div>
       </div>
