@@ -10,7 +10,8 @@
   @stack('prepand-style')
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <link href="/style/main.css" rel="stylesheet"> 
+  <link href="/style/main.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   @stack('addon-style')
   <style>
     .carousel-inner .carousel-item {
@@ -28,22 +29,32 @@
           <img src="/images/dashboard-store-logo.svg" alt="">
         </div>
         <div class="list-group list-group-flush">
-          <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action {{ request()->is('dashboard') ? 'active' : '' }}">Dashboard</a>
-          <a href="{{ route('dashboard-product') }}" class="list-group-item list-group-item-action {{ request()->is('dashboard/products*') ? 'active' : '' }}">My Products</a>
-           
-          <a href="{{ route('dashboard-transactions') }}" class="list-group-item list-group-item-action {{ request()->is('dashboard/transactions') ? 'active' : '' }}">Transactions</a>
-          
-          <a href="{{ route('dashboard-settings-store') }}" class="list-group-item list-group-item-action {{ request()->is('dashboard/settings*') ? 'active' : '' }}">Store Settings</a>          
-          <a href="{{ route('dashboard-settings-account') }}" class="list-group-item list-group-item-action {{ request()->is('dashboard/account*') ? 'active' : '' }}">My Account</a>
-          <a class="dropdown-item" href="{{ route('logout') }}"
-          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-          Logout
-       </a>
+          <a href="{{ route('dashboard') }}"
+            class="list-group-item list-group-item-action {{ request()->is('dashboard') ? 'active' : '' }}">Dashboard</a>
+          <a href="{{ route('dashboard-product') }}"
+            class="list-group-item list-group-item-action {{ request()->is('dashboard/products*') ? 'active' : '' }}">My
+            Products</a>
+
+          <a href="{{ route('dashboard-transactions') }}"
+            class="list-group-item list-group-item-action {{ request()->is('dashboard/transactions') ? 'active' : '' }}">Transactions</a>
+
+          <a href="{{ route('dashboard-settings-store') }}"
+            class="list-group-item list-group-item-action {{ request()->is('dashboard/settings*') ? 'active' : '' }}">Store
+            Settings</a>
+          <a href="{{ route('dashboard-settings-account') }}"
+            class="list-group-item list-group-item-action {{ request()->is('dashboard/account*') ? 'active' : '' }}">My
+            Account</a>
+
+          <a class="list-group-item list-group-item-action fw-bold" href="{{ route('logout') }}"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="fa fa-sign-out"></i> Log out
+          </a>
+
           <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
-        </form>
-        
-        
+          </form>
+
+
         </div>
       </div>
 
@@ -66,33 +77,35 @@
                 <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
                     data-bs-toggle="dropdown">
-                    <!-- <img src="images/icon-user.png" alt="" class="me-2 profile-picture"> -->
-                    {{-- <img src="/images/icon-user.png" alt="" class="me-2 profile-picture" /> --}}
-                    {{-- <img src="/images/icon-user.png" alt="" class="me-2 profile-picture" /> --}}
-                    <img src="{{ Storage::url($user->image_profile) }}" alt="Gambar Profil" class="img-fluid rounded-circle me-2" style="width: 45px; height: 45px; border-radius: 50%;">
-                    {{-- class="img-fluid rounded-circle" style="width: 200px; height: 200px;"> --}}
-
-                    
+                    <img src="{{ Storage::url(Auth::user()->image_profile) }}" alt="Gambar Profil"
+                      class="img-fluid rounded-circle me-2" style="width: 45px; height: 45px; border-radius: 50%;">
                     Hi, {{Auth::user()->name}}
                   </a>
                   <div class="dropdown-menu">
                     <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
                     {{-- <a href="{{ route('dashboard-settings-account') }}" class="dropdown-item">Settings</a> --}}
                     <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                           Logout
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </div>
-                  
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                      onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                      Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      @csrf
+                    </form>
+                  </div>
                 </li>
+
                 <li class="nav-item d-none d-lg-block">
-                  <a href="#" class="nav-link d-lg-inline-block mt-2">
-                    <img src="/images/icon-cart-filled.svg" alt="" />
-                    <div class="card-badge">3</div>
+                  <a href="{{ route('cart') }}" class="nav-link d-inline-block mt-1 ">
+                      @php
+                          $carts = \App\Models\Cart::where('users_id', Auth::user()->id)->count();
+                      @endphp
+                      @if($carts > 0)
+                          <img src="/images/icon-cart-filled.svg" alt="" />
+                          <div class="card-badge">{{ $carts }}</div>
+                      @else
+                          <img src="/images/icon-cart-empty.svg" alt="" />
+                      @endif
                   </a>
                 </li>
               </ul>
@@ -109,7 +122,7 @@
             </div>
           </div>
         </nav>
-        
+
         {{-- === Content === --}}
         @yield('content')
 
@@ -117,11 +130,11 @@
     </div>
   </div>
 
-<!-- Form Logout -->
-<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-  @csrf
-</form>
-  @stack('prepand-script')  
+  <!-- Form Logout -->
+  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+  </form>
+  @stack('prepand-script')
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -137,7 +150,7 @@
       $('#wrapper').toggleClass('toggled')
     });
   </script>
-    @stack('addon-script')
+  @stack('addon-script')
 
 
 </body>

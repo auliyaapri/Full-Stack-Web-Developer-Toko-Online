@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
     // === DASHBOARD ===
     // Rute untuk tampilan dasbor utama
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/jajal', [App\Http\Controllers\DashboardController::class, 'jajal'])->name('jajal');
 
     // Rute untuk tampilan produk di dasbor
     Route::get('/dashboard/products', [App\Http\Controllers\DashboardProductController::class, 'index'])->name('dashboard-product');

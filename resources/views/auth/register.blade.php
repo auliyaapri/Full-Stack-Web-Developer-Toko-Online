@@ -1,216 +1,214 @@
-@extends('layouts.auth')
-
-@section('title')
-Store Home Page
-@endsection
-
+@extends('layouts.auth_baru')
 @section('content')
-
 <div class="page-content page-auth" id="register">
-    <section class="section-store-auth" data-aos="fade-up">
-        <div class="container">
-            <div class="row align-items-center justify-content-center row-login">
-                <div class="col-lg-4">
-                    <h2>Memulai untuk jual beli <br />dengan cara terbaru</h2>
-                    <form method="POST" action="{{ route('register') }}" class="mt-3">
-                        @csrf
-                        <!-- Tambahkan CSRF token untuk keamanan -->
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input 
-                                v-model="name"
-                                id="name" 
-                                type="text" 
-                                class="form-control @error('name') is-invalid @enderror" 
-                                name="name" 
-                                value="{{ old('name') }}" 
-                                required 
-                                autocomplete="name" 
-                                autofocus
-                            >
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        {{-- Email --}}
-                        <div class="form-group">
-                            <label>Email Address</label>
-                            <input v-model="email" @change="checkForEmailAvailability()" id="email" type="email"
-                                class="form-control @error('email') is-invalid @enderror"
-                                :class="{ 'is-invalid': this.email_unavailable }" name="email" required
-                                autocomplete="email">
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        {{-- Password --}}
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input id="password" type="password"
-                                class="form-control @error('password') is-invalid @enderror" name="password" required
-                                autocomplete="new-password">
-                            @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="password_confirmation">Konfirmasi Password</label>
-                            <input id="password_confirmation" type="password"
-                                class="form-control @error('password_confirmation') is-invalid @enderror"
-                                name="password_confirmation" required autocomplete="new-password">
-                            @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        {{-- Buka Toko --}}
-                        <div class="form-group">
-                            <label>Store</label>
-                            <p class="text-muted">
-                                Apakah anda juga ingin membuka toko?
-                            </p>
-                            <div
-                            class="custom-control custom-radio custom-control-inline"
-                            >
-                                <input
-                                    type="radio"
-                                    class="custom-control-input"
-                                    name="is_store_open"
-                                    id="openStoreTrue"
-                                    v-model="is_store_open"
-                                    :value="true"
-                                />
-                                <label for="openStoreTrue" class="custom-control-label">
-                                    Iya, boleh
-                                </label>
-                            </div>
-                            <div
-                                class="custom-control custom-radio custom-control-inline"
-                            >
-                                <input
-                                    type="radio"
-                                    class="custom-control-input"
-                                    name="is_store_open"
-                                    id="openStoreFalse"
-                                    v-model="is_store_open"
-                                    :value="false"
-                                />
-                                <label for="openStoreFalse" class="custom-control-label">
-                                    Enggak, makasih
-                                </label>
-                            </div>
-                        </div>
+    <div class="d-lg-flex half">
+        <div class="bg order-1 order-md-2"
+            style="background-image: url('https://plus.unsplash.com/premium_photo-1709310749440-bfcae3e84c7e?q=80&w=2012&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+        </div>
+        <div class="contents order-2 order-md-1">
 
-                        <div class="form-group" v-if="is_store_open">
-                            <label>Nama Toko</label>
-                            <input 
-                                v-model="store_name"
-                                id="store_name" 
-                                type="text" 
-                                class="form-control @error('store_name') is-invalid @enderror" 
-                                name="store_name" 
-                                value="{{ old('store_name') }}" 
-                                required 
-                                autocomplete="store_name" 
-                                autofocus
-                            >
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-10">
 
-                        <div class="form-group" v-if="is_store_open">
-                            <label>Kategori</label>
-                            <select name="category" class="form-control">
-                                <option value="" disabled>Select Category</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <button
-                            type="submit"
-                            class="btn btn-success btn-block mt-4"
-                            :disabled="this.email_unavailable"
-                        >
-                            Sign Up Now
-                        </button>
-                        <a href="{{ route('login') }}" class="btn btn-signup btn-block mt-2">
-                            Back to Sign In
-                        </a>
-                    </form>
+                        <h3>Register to <strong>WigunaStore</strong></h3>
+                        <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.
+                        </p>
+                        <form method="POST" action="{{ route('register') }}" class="mt-3">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Full Name</label>
+                                        <input v-model="name" id="name" type="text"
+                                            class="form-control @error('name') is-invalid @enderror" name="name"
+                                            value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                        @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{-- email --}}
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Email Address</label>
+                                        <input v-model="email" @change="getUserDataCheck()" id="email"
+                                            type="email" class="form-control @error('email') is-invalid @enderror"
+                                            :class="{ 'is-invalid': this.email_unavailable }" name="email" required
+                                            autocomplete="email">
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{-- password --}}
+                                <div class="col-md-6">
+                                    <div class="form-group last mb-3">
+                                        <label for="password">Password</label>
+                                        <input type="password" id="password"
+                                            class="form-control @error('password') is-invalid @enderror" name="password"
+                                            required autocomplete="current-password">
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="password_confirmation">Konfirmasi Password</label>
+                                        <input id="password_confirmation" type="password"
+                                            class="form-control @error('password_confirmation') is-invalid @enderror"
+                                            name="password_confirmation" required autocomplete="new-password">
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{-- Buka Toko --}}
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Store</label>
+                                        <p class="text-muted">
+                                            Apakah anda juga ingin membuka toko?
+                                        </p>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" name="is_store_open"
+                                                id="openStoreTrue" v-model="is_store_open" :value="true" />
+                                            <label for="openStoreTrue" class="custom-control-label">
+                                                Iya, boleh
+                                            </label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" name="is_store_open"
+                                                id="openStoreFalse" v-model="is_store_open" :value="false" />
+                                            <label for="openStoreFalse" class="custom-control-label">
+                                                Enggak, makasih
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group" v-if="is_store_open">
+                                        <label>Nama Toko</label>
+                                        <input v-model="store_name" id="store_name" type="text"
+                                            class="form-control @error('store_name') is-invalid @enderror"
+                                            name="store_name" value="{{ old('store_name') }}" required
+                                            autocomplete="store_name" autofocus>
+                                        @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group" v-if="is_store_open">
+                                        <label>Kssategori</label>
+                                        <select name="category" class="form-control">
+                                            <option value="" disabled>Select Category</option>
+                                            @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="d-flex mb-5 align-items-center">
+                                <span class="ml-auto"><a href="{{route('register')}}" class="forgot-pass">Belum punya
+                                        asskun ?
+                                        Register</a></span>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block mt-4"
+                                :disabled="this.email_unavailable">
+                                Sign Up Now
+                            </button>
+                            {{-- <button class="btn btn-block btn-primary"> Login </button> --}}
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </div>
-
-
 @endsection
 
 
+
+
 @push('addon-script')
-<script src="/vendor/vue/vue.js"></script>
+
+{{-- <script src="/vendor/vue/vue.js'"></script> --}}
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
 <script src="https://unpkg.com/vue-toasted"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <script>
     // Menggunakan plugin Vue Toasted
-    Vue.use(Toasted);
-
-    // Membuat instance Vue dengan nama "register"
-    var register = new Vue({
-        el: "#register", // Menentukan elemen HTML yang akan dimanipulasi oleh Vue
+    let coba = new Vue({
+        el:"#register", 
         data() {
             return {
-                name: "Angga Hazza Sett",
-                email: "kamujagoan@bwa.id",
+                name:'Auliya apriwiguna',
+                email:'ssd@gmail.com',
                 is_store_open: true,
                 store_name: "",
                 email_unavailable: false
             }
         },
+
         mounted() {
-            AOS.init(); // Menginisialisasi library AOS untuk animasi
+            
         },
         methods: {
-            checkForEmailAvailability() {
-                // Method untuk memeriksa ketersediaan email
-                axios.get('URL_AKTUAL_ANDA', { // Ganti 'URL_AKTUAL_ANDA' dengan URL aktual dari endpoint API Anda
-                    params: { // Parameter yang dikirimkan dalam permintaan
-                        email: this.email // Mengirimkan nilai email dari input form
+            getUserDataCheck() {
+                axios.get('{{ route('api-register-check') }}', {
+                    params: {
+                        email: this.email
                     }
                 })
-                .then(response => { // Menangani respons dari permintaan
-                    // Menentukan pesan toast berdasarkan respons dari server
+                .then(function (response) {
                     const message = response.data === 'Available' ? 'Email anda tersedia! Silahkan lanjut langkah selanjutnya!' : 'Maaf, tampaknya email sudah terdaftar pada sistem kami.';
                     
                     // Menentukan jenis toast berdasarkan respons dari server
                     const type = response.data === 'Available' ? 'success' : 'error';
-                    
-                    // Menampilkan pesan toast dengan menggunakan Vue Toasted
-                    this.$toastedtype;
-                    
-                    // Mengubah nilai variabel email_unavailable berdasarkan respons dari server
+
                     this.email_unavailable = response.data !== 'Available';
-                    
-                    // Menampilkan data respons pada konsol browser
-                    console.log(response.data);
+
+                     // Menampilkan data respons pada konsol browser
+                     console.log(response.data);                     
+
+                     // Menampilkan alert dengan data respons
+                     
+                     Swal.fire({
+                        title: 'Informasi',
+                        text: message,
+                        icon: type, // Success atau Error
+                        confirmButtonText: 'OK'
+                     });
+
                 })
-                .catch(error => { // Menangani kesalahan jika terjadi
-                    console.error(error); // Menampilkan pesan kesalahan pada konsol browser
-                });
+                .catch(function (error) {
+                    console.log(error);
+                    
+                })
             }
         },
-    });
+    })
 </script>
 
 @endpush

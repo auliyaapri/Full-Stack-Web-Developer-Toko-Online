@@ -61,14 +61,30 @@ Store Category Page
             <div class="price">Rp. {{ number_format($products->price, 0, ',', '.') }}</div>
           </div>
           <div class="col-lg-2" data-aos="zoom-in">
-            @auth           
-              
-              <form action="{{ route('detail-add', $products->id) }}" method="POST" enctype="multipart/form-data">              
-                @csrf
-                <button type="submit" class="btn btn-success text-white btn-block mb-3">Add to Cart</button>
-              </form> 
+            @auth
+
+            <form action="{{ route('detail-add', $products->id) }}" method="POST" enctype="multipart/form-data">
+              @csrf
+              <button type="submit" class="btn btn-success text-white btn-block mb-3">Add to Cart</button>
+            </form>
             @else
-              <a href="{{route('login')}}" class="btn btn-success text-white btn-block mb-3">Add to Cart</a>        
+
+            {{-- <a href="{{route('login')}}" class="btn btn-success text-white btn-block mb-3"
+              onclick="showLoginAlert()">Add to Cart</a> --}}
+            <button class="btn btn-success text-white btn-block mb-3" onclick="showLoginAlert()">Add to Cart</button>
+            <script>
+              function showLoginAlert() {
+                  Swal.fire({
+                      title: "Oops!",
+                      text: "Kamu harus login terlebih dahulu!.",
+                      icon: "error",
+                      timer: 1500, // Waktu dalam milidetik (2 detik)
+                      showConfirmButton: false // Menyembunyikan tombol "OK"
+                  }).then(() => {
+                      window.location.href = "{{ route('login') }}";
+                  });
+              }
+          </script>            
             @endauth
           </div>
 

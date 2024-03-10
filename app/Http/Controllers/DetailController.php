@@ -31,6 +31,12 @@ class DetailController extends Controller
 
      public function add(Request $request, $id) 
      {
+
+        if (!Auth::check()) {
+            // Pengguna belum login, arahkan ke halaman login dengan pesan peringatan
+            dd('oke');
+        }
+        
          $data = [
           'products_id' => $id,
           'users_id' => Auth::user()->id

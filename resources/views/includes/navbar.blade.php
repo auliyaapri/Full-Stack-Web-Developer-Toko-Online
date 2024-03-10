@@ -14,9 +14,10 @@
           <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ request()->is('categories') ? 'active' : '' }}" href="{{ url('categories') }}">Categories</a>
+          <a class="nav-link {{ request()->is('categories') ? 'active' : '' }}"
+            href="{{ url('categories') }}">Categories</a>
         </li>
-        <li class="nav-item">          
+        <li class="nav-item">
           <a class="nav-link {{ request()->is('products') ? 'active' : '' }}" href="{{ url('products') }}">Products</a>
         </li>
         <li class="nav-item">
@@ -43,34 +44,37 @@
             <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
             {{-- <a href="{{ route('dashboard-settings-account') }}" class="dropdown-item">Settings</a> --}}
             <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ route('logout') }}"
-                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                   Logout
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </div>
+            <a class="dropdown-item" href="{{ route('logout') }}"
+              onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+              Logout
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+            </form>
+          </div>
 
           {{-- <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{ route('dashboard') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-car"></i> <span class="ps-2">Ldsdsog out </span> </a>
+            <a class="dropdown-item" href="{{ route('dashboard') }}"
+              onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
+                class="fa fa-car"></i> <span class="ps-2">Ldsdsog out </span> </a>
           </div> --}}
 
-          <div class="dropdown-menu"><h1>sdsdsd</h1></div>
+          <div class="dropdown-menu">
+            <h1>sdsdsd</h1>
+          </div>
 
 
         </li>
-        <li class="nav-item d-none d-lg-block">          
-            <a href="{{ route('cart') }}" class="nav-link d-inline-block">
+        <li class="nav-item d-none d-lg-block">
+          <a href="{{ route('cart') }}" class="nav-link d-inline-block">
             @php
-                $carts = \App\Models\Cart::where('users_id', Auth::user()->id)->count();
-            @endphp        
+            $carts = \App\Models\Cart::where('users_id', Auth::user()->id)->count();
+            @endphp
             @if ($carts > 0)
-              <img src="images/icon-cart-empty.svg" alt="" class="" />
-              <div class="card-badge">{{$carts}}</div>
-            @else 
-              <img src="images/icon-cart-empty.svg" alt="" class="" />
-
+            <img src="images/icon-cart-empty.svg" alt="" class="" />
+            <div class="card-badge">{{$carts}}</div>
+            @else
+            <img src="images/icon-cart-empty.svg" alt="" class="" />
             @endif
           </a>
         </li>
@@ -82,6 +86,5 @@
 
 <!-- Form Logout -->
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-    @csrf
+  @csrf
 </form>
-
