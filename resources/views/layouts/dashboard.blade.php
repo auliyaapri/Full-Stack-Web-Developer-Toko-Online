@@ -26,7 +26,8 @@
       <!-- sidebar -->
       <div class="border-right" id="sidebar-wrapper">
         <div class="sidebar-heading text-center">
-          <img src="/images/dashboard-store-logo.svg" alt="">
+          {{-- <img src="/images/dashboard-store-logo.svg" alt=""> --}}
+          <img src="/images/logo2.png" alt="">
         </div>
         <div class="list-group list-group-flush">
           <a href="{{ route('dashboard') }}"
@@ -36,14 +37,13 @@
             Products</a>
 
           <a href="{{ route('dashboard-transactions') }}"
-            class="list-group-item list-group-item-action {{ request()->is('dashboard/transactions') ? 'active' : '' }}">Transactions</a>
+            class="list-group-item list-group-item-action {{ request()->is('dashboard/transactions*') ? 'active' : '' }}">Transactions</a>
 
           <a href="{{ route('dashboard-settings-store') }}"
             class="list-group-item list-group-item-action {{ request()->is('dashboard/settings*') ? 'active' : '' }}">Store
             Settings</a>
           <a href="{{ route('dashboard-settings-account') }}"
-            class="list-group-item list-group-item-action {{ request()->is('dashboard/account*') ? 'active' : '' }}">My
-            Account</a>
+            class="list-group-item list-group-item-action {{ request()->is('dashboard/account*') ? 'active' : '' }}">My Account</a>
 
           <a class="list-group-item list-group-item-action fw-bold" href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -77,9 +77,13 @@
                 <li class="nav-item dropdown">
                   <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
                     data-bs-toggle="dropdown">
-                    <img src="{{ Storage::url(Auth::user()->image_profile) }}" alt="Gambar Profil"
-                      class="img-fluid rounded-circle me-2" style="width: 45px; height: 45px; border-radius: 50%;">
+
+                    <img
+                      src="{{ Storage::url(Auth::user()->image_profile) != '/storage/' ? Storage::url(Auth::user()->image_profile) : '/images/user_wtihout_image.png' }}"
+                      alt="Gambar Profil" class="img-fluid rounded-circle me-2"
+                      style="width: 45px; height: 45px; border-radius: 50%;">
                     Hi, {{Auth::user()->name}}
+
                   </a>
                   <div class="dropdown-menu">
                     <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
@@ -97,15 +101,15 @@
 
                 <li class="nav-item d-none d-lg-block">
                   <a href="{{ route('cart') }}" class="nav-link d-inline-block mt-1 ">
-                      @php
-                          $carts = \App\Models\Cart::where('users_id', Auth::user()->id)->count();
-                      @endphp
-                      @if($carts > 0)
-                          <img src="/images/icon-cart-filled.svg" alt="" />
-                          <div class="card-badge">{{ $carts }}</div>
-                      @else
-                          <img src="/images/icon-cart-empty.svg" alt="" />
-                      @endif
+                    @php
+                    $carts = \App\Models\Cart::where('users_id', Auth::user()->id)->count();
+                    @endphp
+                    @if($carts > 0)
+                    <img src="/images/icon-cart-filled.svg" alt="" />
+                    <div class="card-badge">{{ $carts }}</div>
+                    @else
+                    <img src="/images/icon-cart-empty.svg" alt="" />
+                    @endif
                   </a>
                 </li>
               </ul>

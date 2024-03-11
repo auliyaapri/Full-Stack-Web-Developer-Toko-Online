@@ -80,8 +80,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Rute untuk tampilan transaksi di dasbor
     Route::get('/dashboard/transactions', [App\Http\Controllers\DashboardTransactionController::class, 'index'])->name('dashboard-transactions');
-    Route::get('/dashboard/transactions/{id}', [App\Http\Controllers\DashboardTransactionController::class, 'details'])->name('dashboard-transactions-details');
     
+    Route::get('/dashboard/transactions/{id}', [App\Http\Controllers\DashboardTransactionController::class, 'details'])->name('dashboard-transactions-details');
     Route::post('/dashboard/transactions/{id}', [App\Http\Controllers\DashboardTransactionController::class, 'update'])->name('dashboard-transactions-update');
 
 
@@ -98,5 +98,6 @@ Route::prefix('admin')->group(function () {
     Route::resource('product', \App\Http\Controllers\Admin\ProductController::class);
     Route::resource('product-gallery', \App\Http\Controllers\Admin\ProductGalleryController::class);
     Route::resource('transaction', \App\Http\Controllers\Admin\TransactionController::class);
+    Route::resource('store', \App\Http\Controllers\Admin\StoreController::class);
 
 });

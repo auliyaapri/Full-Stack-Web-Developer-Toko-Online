@@ -34,8 +34,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Email Address</label>
-                                        <input v-model="email" @change="getUserDataCheck()" id="email"
-                                            type="email" class="form-control @error('email') is-invalid @enderror"
+                                        <input v-model="email" @change="getUserDataCheck()" id="email" type="email"
+                                            class="form-control @error('email') is-invalid @enderror"
                                             :class="{ 'is-invalid': this.email_unavailable }" name="email" required
                                             autocomplete="email">
                                         @error('email')
@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group" v-if="is_store_open">
-                                        <label>Kssategori</label>
+                                        <label>Kategori</label>
                                         <select name="category" class="form-control">
                                             <option value="" disabled>Select Category</option>
                                             @foreach ($categories as $category)
@@ -125,10 +125,9 @@
 
 
 
-                            <div class="d-flex mb-5 align-items-center">
-                                <span class="ml-auto"><a href="{{route('register')}}" class="forgot-pass">Belum punya
-                                        asskun ?
-                                        Register</a></span>
+                            <div class="d-flex align-items-center">
+                                <span class="ml-auto"><a href="{{route('login')}}" class="forgot-pass">Sudah punya akun
+                                        ? Login</a></span>
                             </div>
                             <button type="submit" class="btn btn-success btn-block mt-4"
                                 :disabled="this.email_unavailable">
@@ -182,26 +181,29 @@
                     }
                 })
                 .then(function (response) {
-                    const message = response.data === 'Available' ? 'Email anda tersedia! Silahkan lanjut langkah selanjutnya!' : 'Maaf, tampaknya email sudah terdaftar pada sistem kami.';
-                    
-                    // Menentukan jenis toast berdasarkan respons dari server
-                    const type = response.data === 'Available' ? 'success' : 'error';
+    const message = response.data === 'Available' ? 'Email anda tersedia! Silahkan lanjut langkah selanjutnya!' : 'Maaf, tampaknya email sudah terdaftar pada sistem kami.';
+    
+    // Menentukan jenis toast berdasarkan respons dari server
+    const type = response.data === 'Available' ? 'success' : 'error';
 
-                    this.email_unavailable = response.data !== 'Available';
+    this.email_unavailable = response.data !== 'Available';
 
-                     // Menampilkan data respons pada konsol browser
-                     console.log(response.data);                     
+    // Menampilkan data respons pada konsol browser
+    console.log(response.data);
 
-                     // Menampilkan alert dengan data respons
-                     
-                     Swal.fire({
-                        title: 'Informasi',
-                        text: message,
-                        icon: type, // Success atau Error
-                        confirmButtonText: 'OK'
-                     });
+    // Menampilkan alert dengan data respons dengan penundaan
+    setTimeout(() => {
+        Swal.fire({
+            title: 'Informasi',
+            text: message,
+            icon: type, // Success atau Error
+            showConfirmButton: false, // Menghilangkan tombol OK
+            timer: 5000 // Menampilkan alert selama 5 detik
+        });
+    }, 0); // Menunda alert selama 2 detik sebelum ditampilkan
+})
 
-                })
+
                 .catch(function (error) {
                     console.log(error);
                     

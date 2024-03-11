@@ -18,7 +18,7 @@ class Product extends Model
 
     ];
 
-    public function galleries(){
+    public function galleries(){ // 1 product dapat memiliki banyak gallery
         return $this->hasMany(ProductGallery::class, 'products_id', 'id' );
     }
 
@@ -28,5 +28,10 @@ class Product extends Model
 
     public function category(){
         return $this->belongsTo( Category::class, 'categories_id', 'id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'products_id');
     }
 }

@@ -9465,7 +9465,7 @@ footer p {
   font-size: 1.2rem;
 }
 .page-dashboard #sidebar-wrapper img {
-  margin-top: 4.5rem;
+  /* margin-top: 2rem; */
   margin-bottom: 10px;
 }
 .page-dashboard #sidebar-wrapper .list-group {

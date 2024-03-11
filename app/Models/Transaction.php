@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     protected $fillable = [
-        'users_id', 
+        'users_id',
         'insurence_price',
         'shipping_price',
         'total_price',
@@ -17,15 +17,17 @@ class Transaction extends Model
     ];
 
 
-    protected $hidden = [
+    protected $hidden = [];
 
-    ];
+    public function user()
+    {        
+        return $this->belongsTo(User::class,'users_id','id');
 
-    public function user(){
-        return $this->belongsTo( User::class, 'users_id', 'id');
+    }
+
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'transactions_id');
     }
 }
-
-
-
-

@@ -8,7 +8,7 @@
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7">
 
-            <h3>Login to <strong>Colorlib</strong></h3>
+            <h3>Login to <strong>WigunaStore</strong></h3>
             <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
             <form action="{{route('login')}}" method="POST" class="mt-3">
             @csrf
@@ -32,7 +32,7 @@
                 @enderror
               </div>
               
-              <div class="d-flex mb-5 align-items-center">          
+              <div class="d-flex align-items-center">          
                 <span class="ml-auto"><a href="{{route('register')}}" class="forgot-pass">Belum punya akun ? Register</a></span> 
               </div>
               <button class="btn btn-block btn-primary"> Login </button>

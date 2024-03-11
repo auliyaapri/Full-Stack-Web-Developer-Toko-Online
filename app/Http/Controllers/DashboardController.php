@@ -31,7 +31,7 @@ class DashboardController extends Controller
         $customer = User::count();
     
         // Mengembalikan view dashboard dengan data yang diperlukan
-        return view('pagesweb.dashboard', [
+        return view('pages.dashboard', [
             'transaction_count' => $transactions->count(), // Jumlah transaksi
             'transaction_data' => $transactions->get(), // Data transaksi
             'revenue' => $revenue, // Pendapatan total

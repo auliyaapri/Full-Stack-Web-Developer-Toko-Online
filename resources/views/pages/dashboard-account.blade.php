@@ -126,10 +126,11 @@ Store Dashboard
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="image_profile">Ganti Profile</label>
-                                            <input type="file" class="form-control" id="image_profile"
-                                                name="image_profile">
-                                            <img src="{{ Storage::url($user->image_profile) }}" alt="Gambar Profil"
-                                                class="img-fluid mt-3" style="max-width: 200px;">
+                                            <input type="file" class="form-control" id="image_profile" name="image_profile">
+                                            {{-- <img src="{{ Storage::url($user->image_profile) }}" alt="Gambar Profil" class="img-fluid mt-4" style="max-width: 200px;"> --}}
+                                            <img src="{{ Storage::url($user->image_profile) != '/storage/' ? Storage::url($user->image_profile) : '/images/user_wtihout_image.png' }}" alt="Gambar Profil" class="img-fluid mt-4" style="max-width: 200px;">
+
+                                            
                                         </div>
                                     </div>
                                 </div>

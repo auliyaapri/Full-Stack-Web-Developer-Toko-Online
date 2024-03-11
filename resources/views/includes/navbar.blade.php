@@ -2,7 +2,8 @@
 <nav class="navbar navbar-expand-lg navbar-light navbar-store navbar-fixed-top fixed-top" data-aos="fade-down">
   <div class="container">
     <a class="navbar-brand" href="/index.html">
-      <img src="/images/logo.svg" alt="Logo">
+      {{-- <img src="/images/logo.svg" alt="Logo"> --}}
+      <img src="/images/logo3.png" alt="Logo" class="img-fluid" width="100px">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
       aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,7 +22,7 @@
           <a class="nav-link {{ request()->is('products') ? 'active' : '' }}" href="{{ url('products') }}">Products</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Rewards</a>
+          <a class="nav-link" href="#">Rewssards</a>
         </li>
         <!-- Jika Belum Login -->
         @guest

@@ -5,162 +5,166 @@ Store Dashboard Product
 @endsection
 
 @section('content')
-      <!-- section-content -->
-      <section class="section-content section-dashboard-home" data-aos="fade-up">
-        <div class="container-fluid">
-          <div class="dashboard-heading">
-            <h2  class="dashboard-title">#{{$transaction->code}}</h2>
-            <p class="dashboard-subtitle">Transaction / Details</p>
-          </div>
-          <div class="dashboard-content " id="transactionDetails">
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-body"> 
-                    <div class="row">
-                      <div class="col-12 col-md-4">
-                        <img src="{{Storage::url($transaction->product->galleries->first()->photos ?? '')}}" class="w-100 mt-3" alt="">
-                      </div>
-                      <div class="col-12 col-md-8 mt-3">
-                        <div class="row">
-                          <div class="col-12 col-md-6">
-                            <div class="product-title">Customer Name</div>
-                            <div class="product-subtitle">{{$transaction->transaction->user->name}}</div>
-                          </div>
-                          <div class="col-12 col-md-6">
-                            <div class="product-title">Product Name</div>
-                            <div class="product-subtitle">Shirup</div>
-                          </div>
-                          <div class="col-12 col-md-6">
-                            <div class="product-title">Date of Transaction</div>
-                            <div class="product-subtitle">12 Januari, 2020</div>
-                          </div>
-                          <div class="col-12 col-md-6">
-                            <div class="product-title">Payment Status</div>
-                            <div class="product-subtitle text-danger">
-                              {{$transaction->transaction->transaction_status}}
-                            </div>
-                          </div>
-                          <div class="col-12 col-md-6">
-                            <div class="product-title">Total Amount</div>
-                            <div class="product-subtitle">Rp. {{ number_format($transaction->price, 0, ',', '.') }}</div>
-                          </div>
-                          <div class="col-12 col-md-6">
-                            <div class="product-title">Mobile</div>
-                            <div class="product-subtitle">{{$transaction->transaction->user->phone_number}}</div>
-                          </div>
-  
-                        </div>
+<!-- section-content -->
+<section class="section-content section-dashboard-home" data-aos="fade-up">
+  <div class="container-fluid">
+    <div class="dashboard-heading">
+      <h2 class="dashboard-title">#{{$transaction->code}}</h2>
+      <p class="dashboard-subtitle">Transaction / Details</p>
+    </div>
+    <div class="dashboard-content " id="transactionDetails">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12 col-md-4">
+                  <img src="{{Storage::url($transaction->product->galleries->first()->photos ?? '')}}"
+                    class="w-100 mt-3" alt="">
+                </div>
+                <div class="col-12 col-md-8 mt-3">
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                      <div class="product-title mb-2">Customer Name</div>
+
+                      <div class="product-subtitle">{{$transaction->transaction->user->name}} </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="product-title mb-2">Product Name</div>
+                      <div class="product-subtitle">Shirup</div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="product-title mb-2">Date of Transaction</div>
+                      <div class="product-subtitle">12 Januari, 2020</div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="product-title mb-2">Payment Status</div>
+                      <div class="product-subtitle text-danger">
+                        {{$transaction->transaction->transaction_status}}
                       </div>
                     </div>
-                    <!-- Baris Baru -->
-                    <form action="{{route('dashboard-transactions-update', $transaction->id)}}" method="POST" enctype="multipart/form-data">
-                      @csrf
-                      <div class="row">
-                        <div class="col-12 mt-4 mb-2">
-                          <h5>Shipping Information</h5>
-                        </div>
-                        <!-- Address -->
-                        <div class="col-12">
-                          <div class="row">
-                            <div class="col-12 col-md-6">
-                              <div class="product-title">Address 1</div>
-                              <div class="product-subtitle">{{$transaction->transaction->user->address_one}}</div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                              <div class="product-title">Address 2</div>
-                              <div class="product-subtitle">{{$transaction->transaction->user->address_two}}</div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- Province City -->
-                        <div class="col-12">
-                          <div class="row">
-                            <div class="col-12 col-md-6">
-                              <div class="product-title">Province</div>
-                              <div class="product-subtitle">
-                                  {{ App\Models\Province::find($transaction->transaction->user->provinces_id)->name }}
-                              </div>
-                          </div>
-                          
-                            <div class="col-12 col-md-6">
-                              <div class="product-title">City</div>
-                              <div class="product-subtitle">
-                                {{ App\Models\Regency::find($transaction->transaction->user->regencies_id)->name }}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- Resi -->
-                        <div class="col-12">
-                          <div class="row">
-                            <div class="col-12 col-md-6">
-                              <div class="product-title">Postal Code</div>
-                              <div class="product-subtitle">{{$transaction->transaction->user->zip_code}}</div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                              <div class="product-title">Country</div>
-                              <div class="product-subtitle">{{$transaction->transaction->user->country}}</div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                              <div class="product-title">shipping_status</div>
-                              <div class="product-subtitle">{{$transaction->shipping_status}}</div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- Resi -->
-                        <div class="col-12">
-                          <div class="row">
-                            <div class="col-12 col-md-6">
-                              <div class="product-title">Shipping Status</div>
-                              <select name="shipping_status"id="status"class="form-control"v-model="status">
-                                <option value="UNPAID">Unpaid</option>
-                                <option value="PENDING">Pending</option>
-                                <option value="SHIPPING">Shipping</option>
-                                <option value="SUCCESS">Success</option>
-                              </select>
-                            </div>
-                            <template v-if="status == 'SHIPPING'">
-                              <div class="col-md-3">
-                                <div class="product-title">Input Resi</div>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  name="resi"
-                                  v-model="resi"
-                                />
-                              </div>
-                              <div class="col-md-2">
-                                <button
-                                  type="submit"
-                                  class="btn btn-success btn-block mt-4"
-                                >
-                                  Update Resi
-                                </button>
-                              </div>
-                            </template>                      
-                          </div>
-                        </div>
-                        <!-- Resi -->
-    
-    
-                      </div>
-                        <div class="row mt-4">
-                        <div class="col-12 mt-4 mb-2 text-right">
-                          <button type="submit" class="btn btn-success mt-4 px-5 py-2">Save Now</button>
-                        </div>
-                      </div>
-                    </form>
+                    <div class="col-12 col-md-6">
+                      <div class="product-title mb-2">Total Amount</div>
+                      <div class="product-subtitle">Rp. {{ number_format($transaction->price, 0, ',', '.') }}</div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="product-title mb-2">Mobile</div>
+                      <div class="product-subtitle">{{$transaction->transaction->user->phone_number}}</div>
+                    </div>
 
-  
-  
                   </div>
                 </div>
               </div>
+              <!-- Baris Baru -->
+              <form action="{{route('dashboard-transactions-update', $transaction->id)}}" method="POST"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                  <div class="col-12 mt-4 mb-2">
+                    <h5>Shipping Information</h5>
+                  </div>
+                  <!-- Address -->
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+                        <div class="product-title mb-2">Address 1</div>
+                        <div class="product-subtitle">{{$transaction->transaction->user->address_one}}</div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="product-title mb-2">Address 2</div>
+                        <div class="product-subtitle">{{$transaction->transaction->user->address_two}}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Province City -->
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+                        <div class="product-title mb-2">Province</div>
+                        <div class="product-subtitle">
+                          {{ App\Models\Province::find($transaction->transaction->user->provinces_id)->name }}
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-md-6">
+                        <div class="product-title mb-2">City</div>
+                        <div class="product-subtitle">
+                          {{ App\Models\Regency::find($transaction->transaction->user->regencies_id)->name }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Resi -->
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+                        <div class="product-title mb-2">Postal Code</div>
+                        <div class="product-subtitle">{{$transaction->transaction->user->zip_code}}</div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="product-title mb-2">Country</div>
+                        <div class="product-subtitle">{{$transaction->transaction->user->country}}</div>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <div class="product-title mb-2">shipping_status</div>
+                        <div class="product-subtitle">{{$transaction->shipping_status}}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Resi -->
+                  {{-- <h1>as</h1> --}}
+                  @php
+                  if (Auth::user()->name != $transaction->transaction->user->name) :
+                  @endphp
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+                        <div class="product-title mb-2">Shipping Status</div>
+                        <select name="shipping_status" id="status" class="form-select" v-model="status">
+                          <option value="UNPAID">Unpaid</option>
+                          <option value="PENDING">Pending</option>
+                          <option value="SHIPPING">Shipping</option>
+                          <option value="SUCCESS">Success</option>
+                        </select>
+                      </div>
+                      <template v-if="status == 'SHIPPING'">
+                        <div class="col-md-3">
+                          <div class="product-title mb-2">Input Resi</div>
+                          <input type="text" class="form-control" name="resi" v-model="resi" />
+                        </div>
+                        <div class="col-md-2">
+                          <button type="submit" class="btn btn-success btn-block mt-4">
+                            Update Resi
+                          </button>
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+    
+
+                  <!-- Resi -->
+
+
+                </div>
+                <div class="row mt-4">
+                  <div class="col-12 mt-4 mb-2 text-right">
+                    <button type="submit" class="btn btn-success mt-4 px-5 py-2">Save Now</button>
+                  </div>
+                </div>
+                @php
+                endif;
+                @endphp
+              </form>
+
+
+
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
 @endsection
 
 @push('addon-script')
@@ -183,5 +187,5 @@ Store Dashboard Product
   })
 </script>
 
-    
+
 @endpush
