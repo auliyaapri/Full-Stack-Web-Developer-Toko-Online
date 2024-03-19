@@ -14,9 +14,15 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin');
+    }
+    
+
     public function index()
     {
         // Memeriksa apakah request yang diterima adalah ajax request
@@ -98,10 +104,9 @@ class ProductController extends Controller
     public function edit($id)
     {
 
+        $item = Product::with(['user', 'category'])->findOrFail($id);
         $users = User::all();
         $categories = Category::all();
-
-        $item = Product::findOrFail($id);
         return view('pages.admin.product.edit', [
             'users' => $users,
             'categories' => $categories,

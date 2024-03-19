@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Store Category Page
+Product Details
 @endsection
 
 @section('content')
@@ -17,7 +17,7 @@ Store Category Page
               <li class="breadcrumb-item">
                 <a href="">Home</a>
               </li>
-              <li class="breadcrumb-item active">Productss Details</li>
+              <li class="breadcrumb-item active">Products Details</li>
             </ol>
           </nav>
         </div>

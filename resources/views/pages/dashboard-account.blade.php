@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Store Dashboard
+Admin | Account
 @endsection
 
 @section('content')
@@ -53,49 +53,38 @@ Store Dashboard
                                                 value="{{$user->address_two}}">
                                         </div>
                                     </div>
-                                    <!-- Province, City, Postal Code -->
-                                    <!-- Province -->
-                                    {{-- <div class="col-md-12">
-                                        <div class="form-group">
-                                            <select class="form-select">
 
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
-                                        </div>
-
-
-                                    </div> --}}
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="provinces_id">Province</label>
+                                            <div class="form-control mb-3 bg-secondary-subtle">
+                                                <div v-for="province in provinces" :key="province.id"
+                                                    v-if="province.id === {{$user->provinces_id}}">
+                                                    @{{ province.name }}
+                                                </div>
+                                            </div>
+
                                             <select name="provinces_id" id="provinces_id" class="form-select"
                                                 v-model="provinces_id" v-if="provinces">
-
-
-                                                <option v-for="province in provinces" :value="province.id">@{{
-                                                    province.name }}</option>
+                                                <option v-for="province in provinces" :value="province.id">
+                                                    @{{province.name }}</option>
                                             </select>
                                             <select v-else class="form-control"></select>
-
-                                            <h1 v-for="province in provinces" :key="province.id"
-                                                v-if="province.id === {{$user->provinces_id}}">
-                                                @{{ province.name }}
-                                            </h1>
-
-                                            <h1>{{$user->provinces_id}}</h1>
-
+                                            {{-- <h1>{{$user->provinces_id}}</h1> --}}
                                         </div>
                                     </div>
+
                                     <!-- City -->
                                     <div class="col-md-4">
-                                        <div class="form-group">
+                                        <div class="form-group" >
                                             <label for="regencies_id">City</label>
+                                            <div class="form-control mb-3 bg-secondary-subtle">
+                                                {{ $regency->name }}
+                                            </div>
                                             <select name="regencies_id" id="regencies_id" class="form-select"
                                                 v-model="regencies_id" v-if="regencies">
-                                                <option v-for="regency in regencies" :value="regency.id">@{{regency.name
-                                                    }}</option>
+                                                <option v-for="regency in regencies" :value="regency.id">
+                                                    @{{regency.name}}</option>
                                             </select>
                                             <select v-else class="form-control"></select>
                                         </div>
@@ -126,11 +115,10 @@ Store Dashboard
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="image_profile">Ganti Profile</label>
-                                            <input type="file" class="form-control" id="image_profile" name="image_profile">
-                                            {{-- <img src="{{ Storage::url($user->image_profile) }}" alt="Gambar Profil" class="img-fluid mt-4" style="max-width: 200px;"> --}}
-                                            <img src="{{ Storage::url($user->image_profile) != '/storage/' ? Storage::url($user->image_profile) : '/images/user_wtihout_image.png' }}" alt="Gambar Profil" class="img-fluid mt-4" style="max-width: 200px;">
-
-                                            
+                                            <input type="file" class="form-control" id="image_profile"
+                                                name="image_profile">
+                                            <img src="{{ Storage::url($user->image_profile) != '/storage/' ? Storage::url($user->image_profile) : '/images/user_wtihout_image.png' }}"
+                                                alt="Gambar Profil" class="img-fluid mt-4" style="max-width: 200px;">
                                         </div>
                                     </div>
                                 </div>
@@ -139,12 +127,21 @@ Store Dashboard
                                         <button class="btn btn-success w-25">Save Now</button>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
                     </form>
+
+                    
+                    @if ($user->image_profile != NULL)
+                    <form action="{{ route('dashboard-settings-account.destroy', $user->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Hapus Gambar </button>
+                    </form>
+                    @endif
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
 </section>
 @endsection
@@ -163,6 +160,8 @@ Store Dashboard
         mounted() {
             AOS.init();
             this.getProvincesData();
+            this.getRegenciesData(); // tambahkan ini
+
         },
         data: {
             // Properti ini digunakan untuk menyimpan data provinsi, regencies, provinces_id, regencies_id yang akan diambil dari API

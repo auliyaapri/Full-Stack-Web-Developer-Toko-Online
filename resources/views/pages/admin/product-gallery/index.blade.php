@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Product Gallery
+Admin | Product Gallery
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@ Product Gallery
 <section class="section-content section-dashboard-home" data-aos="fade-up">
     <div class="container-fluid">
         <div class="dashboard-heading">
-            <h2 class="dashboard-title">product</h2>
+            <h2 class="dashboard-title">Product Gallery</h2>
             <p class="dashboard-subtitle">List of Gallery
             <p>
         </div>
@@ -19,7 +19,7 @@ Product Gallery
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <a href="{{route('product-gallery.create')}}" class="btn btn-primary mb-3">+ Tambah Product Galerry</a>
+                            <a href="{{route('product-gallery.create')}}" class="btn btn-primary mb-3">+ Tambah Product Gallery</a>
                             <div class="table-responsive">
                                 <table class="table table-hover scroll-horizontal-vertical w-100" id="crudTable">
                                     <thead>

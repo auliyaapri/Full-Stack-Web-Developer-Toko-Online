@@ -54,7 +54,6 @@ Store Dashboard Product
                 </a>
               </div>
               @endforeach
-
             </div>
 
             <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">

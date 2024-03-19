@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Store Home Page
+Home
 @endsection
 
 @section('content')
@@ -108,15 +108,6 @@ Store Home Page
     </div>
 </section>
 <!-- END STORE NEW PRODUCT -->
-
-
-
-
-
-
-
-
-
 @if (Session::has('success'))
 <script>
     // Fungsi untuk menampilkan Sweet Alert saat halaman dimuat

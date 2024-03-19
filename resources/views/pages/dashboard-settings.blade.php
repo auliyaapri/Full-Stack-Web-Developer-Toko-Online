@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Store Dashboard
+Admin | Settings
 @endsection
 
 @section('content')
@@ -27,13 +27,23 @@ Store Dashboard
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                          <label>Kategori</label>
-                                          <select name="categories_id" class="form-control">
-                                            <option value="{{ $user->categories_id }}">Tidak diganti</option>
-                                            @foreach ($categories as $categories)
-                                              <option value="{{ $categories->id }}">{{ $categories->name }}</option>
-                                            @endforeach
-                                          </select>
+                                          <label>Kategori</label>                                        
+                                          <h1>{{ $categories->name }}</h1>
+                                          
+                                          <div id="transactionDetails">
+                                            <select name="categories_id" class="form-control" v-model="categories">
+                                                {{-- <option value="{{ $user->categories_id }}">Tidak diganti</option> --}}
+                                                {{-- @foreach ($category as $categor)
+                                                    <option value="{{ $categor->id }}">{{ $categor->name }}</option>
+                                                @endforeach --}}
+                                            </select>
+                                        </div>
+
+               
+                                        
+
+                                          
+
                                         </div>
                                       </div>
                                     <div class="col-md-6">
@@ -77,11 +87,22 @@ Store Dashboard
             </div>
         </div>
     </div>
-
 </section>
 @endsection
-
-
+@push('addon-script')
+<script src="/vendor/vue/vue.js"></script>
 <script>
 
+
+    var transactionDetails = new Vue({
+    el:'#transactionDetails',
+    data: {
+        categories: '{{ $user->categories_id }}',      
+    }
+  })
 </script>
+
+
+@endpush
+
+

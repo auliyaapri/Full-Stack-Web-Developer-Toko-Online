@@ -79,9 +79,10 @@
                     data-bs-toggle="dropdown">
 
                     <img
-                      src="{{ Storage::url(Auth::user()->image_profile) != '/storage/' ? Storage::url(Auth::user()->image_profile) : '/images/user_wtihout_image.png' }}"
-                      alt="Gambar Profil" class="img-fluid rounded-circle me-2"
-                      style="width: 45px; height: 45px; border-radius: 50%;">
+                    src="{{ Storage::url(Auth::user()->image_profile) != '/storage/' ? Storage::url(Auth::user()->image_profile) : '/images/user_wtihout_image.png' }}"
+                    alt="Gambar Profil" class="img-fluid rounded-circle me-2"
+                    style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;">
+                
                     Hi, {{Auth::user()->name}}
 
                   </a>

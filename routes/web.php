@@ -79,19 +79,34 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard/products/gallery/delete/{id}', [App\Http\Controllers\DashboardProductController::class, 'deleteGallery'])->name('dashboard-product-gallery-delete');
 
     // Rute untuk tampilan transaksi di dasbor
-    Route::get('/dashboard/transactions', [App\Http\Controllers\DashboardTransactionController::class, 'index'])->name('dashboard-transactions');
-    
+    Route::get('/dashboard/transactions', [App\Http\Controllers\DashboardTransactionController::class, 'index'])->name('dashboard-transactions');    
     Route::get('/dashboard/transactions/{id}', [App\Http\Controllers\DashboardTransactionController::class, 'details'])->name('dashboard-transactions-details');
     Route::post('/dashboard/transactions/{id}', [App\Http\Controllers\DashboardTransactionController::class, 'update'])->name('dashboard-transactions-update');
 
 
-    // Rute untuk pengaturan di dasbor
-    Route::get('/dashboard/settings', [App\Http\Controllers\DashboardSettingController::class, 'store'])->name('dashboard-settings-store');
+    // === DASHBOARD PAGE MY ACCOUNT ===
     Route::get('/dashboard/account', [App\Http\Controllers\DashboardSettingController::class, 'account'])->name('dashboard-settings-account');
+    Route::delete('/dashboard/account/{id}', [App\Http\Controllers\DashboardSettingController::class, 'destroy'])->name('dashboard-settings-account.destroy');
+
     Route::post('/dashboard/update/{redirect}', [App\Http\Controllers\DashboardSettingController::class, 'update'])->name('dashboard-settings-redirect'); // ini maksudnya redirect ke halaman yang sebelumnya dibuka ya kakaka
+    
+    // === DASHBOARD PAGE STORE SETTINGS ===
+    Route::get('/dashboard/settings', [App\Http\Controllers\DashboardSettingController::class, 'store'])->name('dashboard-settings-store');
+    
+    
+    
+    Route::get('/store/{id}', [App\Http\Controllers\Admin\StoreController::class, 'detail'])->name('store-detail');
+    Route::put('/store/{id}', [App\Http\Controllers\Admin\StoreController::class, 'update'])->name('store-update-store');
+
+
+
+
+    
 });
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')
+->middleware(['auth','admin'])
+->group(function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin-dashboard');
     Route::resource('category', \App\Http\Controllers\Admin\CategoryController::class);
     Route::resource('user', \App\Http\Controllers\Admin\UserController::class);
@@ -99,5 +114,4 @@ Route::prefix('admin')->group(function () {
     Route::resource('product-gallery', \App\Http\Controllers\Admin\ProductGalleryController::class);
     Route::resource('transaction', \App\Http\Controllers\Admin\TransactionController::class);
     Route::resource('store', \App\Http\Controllers\Admin\StoreController::class);
-
 });

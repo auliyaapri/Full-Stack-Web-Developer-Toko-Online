@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Product
+Admin | Product
 @endsection
 
 @section('content')
@@ -48,7 +48,7 @@ Product
 
 @push('addon-script')
 <script>
-        // AJAX DataTablenn
+    // AJAX DataTablenn
         var datatable = $('#crudTable').DataTable({
             processing: true,
             serverSide: true,
@@ -61,7 +61,13 @@ Product
                 { data: 'name', name: 'name' },
                 { data: 'user.name', name: 'user.name' },
                 { data: 'category.name', name: 'category.name' },
-                { data: 'price', name: 'price' },
+                { 
+                    data: 'price', 
+                    name: 'price',
+                    render: function(data) {
+                        return "Rp. " + number_format(data);
+                    }
+                },
                 {
                     data: 'action',
                     name: 'action',
@@ -77,7 +83,4 @@ Product
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 </script>
-
-
-
 @endpush

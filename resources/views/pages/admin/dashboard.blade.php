@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Store Dashboard
+Admin | Dashboard
 @endsection
 
 @section('content')
@@ -10,8 +10,7 @@ Store Dashboard
     <div class="container-fluid">
         <div class="dashboard-heading">
             <h2 class="dashboard-title">Admin Dashboard</h2>
-            <p class="dashboard-subtitle">This is BWASTORE Administrator
-            <p>
+            <p class="dashboard-subtitle">This is Wiguna Administrator<p>
         </div>
         <!-- Dashboard Content -->
         <div class="dashboard-content">
@@ -20,7 +19,10 @@ Store Dashboard
                     <div class="card mb-2">
                         <div class="card-body">
                             <div class="dashboard-card-title">Customer</div>
-                            <div class="dashboard-card-subtitle">{{$customer}}</div>
+                            <div class="dashboard-card-subtitle">
+                                <i style="color: #eb690a" class="fa fa-user"></i> 
+                                <span class="ms-3">{{$customer}}</span>
+                            </div>                            
                         </div>
                     </div>
                 </div>
@@ -28,7 +30,12 @@ Store Dashboard
                     <div class="card mb-2">
                         <div class="card-body">
                             <div class="dashboard-card-title">Revenue</div>
-                            <div class="dashboard-card-subtitle">Rp. {{$revenue}}</div>
+                            <div class="dashboard-card-subtitle">
+                                <i style="color: #eb690a" class="fa fa-line-chart"></i> 
+                                <span class="ms-3">                                
+                                {{"Rp. ". number_format($revenue, 0, ',', '.')}}
+                            </span>                            
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -36,72 +43,21 @@ Store Dashboard
                     <div class="card mb-2">
                         <div class="card-body">
                             <div class="dashboard-card-title">Transaction</div>
-                            <div class="dashboard-card-subtitle">{{$transaction}}</div>
-                        </div>
-                    </div>
-                </div>
-                <h5 class="mt-3">Recent Transactions</h5>
-                {{-- 1 --}}
-                <div class="col-12">
-                    <div class="col-12 g-0 p-0">
-
-                        <a href="/dashboard-transactions-details" class="card card-list d-block mt-3">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-1">
-                                        <img src="/images/dashboard-icon-product-1.png" alt="">
-                                    </div>
-                                    <div class="col-md-4">Shirup MarzSSSan</div>
-                                    <div class="col-md-3">Angga Risky</div>
-                                    <div class="col-md-3">12 Januari, 2020</div>
-                                    <div class="col-md-1 d-none d-md-block">
-                                        <img src="/images/dashboard-arrow-right.svg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-12 g-0 p-0">
-                        <a href="/dashboard-transactions-details" class="card card-list d-block mt-3">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-1">
-                                        <img src="/images/dashboard-icon-product-1.png" alt="">
-                                    </div>
-                                    <div class="col-md-4">Shirup MarzSSSan</div>
-                                    <div class="col-md-3">Angga Risky</div>
-                                    <div class="col-md-3">12 Januari, 2020</div>
-                                    <div class="col-md-1 d-none d-md-block">
-                                        <img src="/images/dashboard-arrow-right.svg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                {{-- 2 --}}
-                {{-- <div class="col-12 bg-danger">
-                    <a href="/dashboard-transactions-details" class="card card-list d-block mt-3">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-1">
-                                    <img src="/images/dashboard-icon-product-1.png" alt="">
-                                </div>
-                                <div class="col-md-4">Shirup MarzSSSan</div>
-                                <div class="col-md-3">Angga Risky</div>
-                                <div class="col-md-3">12 Januari, 2020</div>
-                                <div class="col-md-1 d-none d-md-block">
-                                    <img src="/images/dashboard-arrow-right.svg" alt="">
-                                </div>
+                            <div class="dashboard-card-subtitle">
+                                <i style="color: #eb690a" class="fa fa-exchange"></i> 
+                                <span class="ms-3">{{$transaction}}</span>
+                            
                             </div>
                         </div>
-                    </a>
-                </div> --}}
+                    </div>
+                </div>                
             </div>
         </div>
     </div>
 
-
+     <!-- Untuk revenue -->
+    <i class="fas fa-exchange-alt"></i> <!-- Untuk transaction -->
+    
 
 </section>
 @endsection

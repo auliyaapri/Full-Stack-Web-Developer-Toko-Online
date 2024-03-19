@@ -17,9 +17,9 @@ class IsAdmin
     public function handle(Request $request, Closure $next): Response
     {
         // Ini buat jika admin boleh lewat kalau bukan jangan
-        if (Auth::user() && Auth::user()->roles == "ADMIN") {
-            return $next($request);            
+        if (Auth::user() && Auth::user()->roles == "Admin") {
+            return $next($request);
         }
         return redirect('/');
-    }
+    }    
 }

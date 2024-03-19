@@ -12,10 +12,13 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin');
+    }
+    
+    public function oke()
     {
         // Memeriksa apakah request yang diterima adalah ajax request
         if (request()->ajax()) {
@@ -24,6 +27,10 @@ class UserController extends Controller
 
             // Menggunakan datatables untuk memproses data dari query builder
             return DataTables::of($query)
+                   // Menambahkan kolom tambahan ('DT_RowIndex') untuk nomor urutan
+                   ->addColumn('DT_RowIndex', function ($item) {
+                    return '';
+                })
                 // Menambahkan kolom tambahan ('action') menggunakan fungsi callback
                 ->addColumn('action', function ($item) {
                     // Markup HTML yang berisi aksi-aksi yang akan ditampilkan di dalam tabel
@@ -47,15 +54,22 @@ class UserController extends Controller
                 ';
                 })
                 // Menggunakan method rawColumns() untuk memberitahu datatables bahwa kolom 'action' dan 'photo' merupakan markup HTML yang sudah di-render dan tidak perlu di-escape
-                ->rawColumns(['action'])
+                ->rawColumns(['DT_RowIndex', 'action'])
                 // Menggunakan method make() untuk membuat dan menampilkan datatables, dengan parameter true menandakan bahwa data akan langsung dikirim ke client
                 ->make(true);
         }
 
         // Jika request bukan ajax request, maka akan mereturn view yang akan menampilkan halaman dengan datatables untuk kategori
-        return view('pages.admin.user.index');
+        // return view('pages.admin.user.index');
     }
 
+    public function index(){
+        $users = User::where();
+        return view('pages.admin.user.index', [
+            'users' => $users
+        ]);
+    }
+    
 
 
     public function create()
@@ -135,3 +149,7 @@ public function destroy($id)
 
 
 // https://youtu.be/Dle-W02AjoA 9 menit 41 detik
+
+
+
+

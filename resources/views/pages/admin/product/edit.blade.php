@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Edit Product
+Admin | Edit Product
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@ Edit Product
     <div class="container-fluid">
         <div class="dashboard-heading">
             <h2 class="dashboard-title">Edit Product</h2>
-            <p class="dashboard-subtitle">Create New Product</p>
+            <p class="dashboard-subtitle">Edit this Product</p>
         </div>
         <!-- Dashboard Content -->
         <div class="dashboard-content">
@@ -40,18 +40,18 @@ Edit Product
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">Pemilik Product</label>
-                                            <select class="form-select" aria-label="Default select example" name="users_id">
-                                                <option value="{{$item->users_id}}" selected>{{$item->username}}</option>
+                                            <select name="users_id" class="form-control">
+                                                <option value="{{ $item->users_id }}">{{ $item->user->name }}</option>
+                                                <option value="" disabled>----------------</option>
                                                 @foreach ($users as $user)
-                                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                                  <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                 @endforeach
-                                            </select>
+                                              </select>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="">Kategori product</label>
-                                            <option value="{{$item->categories_id}}" selected>{{$item->user->ame}}</option>
+                                            <label for="">Kategori product</label>                                            
                                             <select class="form-select" aria-label="Default select example"
                                                 name="categories_id">
                                                 @foreach ($categories as $category)
@@ -63,9 +63,14 @@ Edit Product
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">Harga product</label>
-                                            <input type="number" name="price" class="form-control" value="{{$item->price}}" required>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">Rp. </span>
+                                                <input type="number" name="price" class="form-control" value="{{$item->price}}" required>
+                                              </div>                                            
                                         </div>
                                     </div>
+                                  
+
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">Deskripsi Produk</label>

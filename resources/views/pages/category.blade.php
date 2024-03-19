@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Store Category Page
+Categories
 @endsection
 
 @section('content')

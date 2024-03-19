@@ -13,7 +13,9 @@
   <link href="/style/main.css" rel="stylesheet"> 
   {{-- <link href="https://cdn.datatables.net/v/dt/dt-2.0.0/datatables.min.css" rel="stylesheet">  --}}
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   @stack('addon-style')
+  
   <style>
     .carousel-inner .carousel-item {
       transition: .5s;
@@ -31,21 +33,20 @@
           <img src="/images/logo2.png" alt="" class="" style="max-width: 150px">
         </div>
         <div class="list-group list-group-flush">
-          <a href="{{ route('admin-dashboard') }}" class="list-group-item list-group-item-action {{ request()->is('admin') ? 'active' : '' }}">Dashboard</a>
-          <a href="{{ route('product.index') }}" class="list-group-item list-group-item-action {{ request()->is('admin/product') ? 'active' : '' }}">Products</a>
-          <a href="{{ route('product-gallery.index') }}" class="list-group-item list-group-item-action {{ request()->is('admin/product-gallery*') ? 'active' : '' }}">Product Gallery</a>
-          
-          
+          <a href="{{ route('admin-dashboard') }}" class="list-group-item list-group-item-action {{ request()->is('admin') ? 'active' : '' }}">Dashboard</a>                
+          <a href="{{ route('product.index') }}" class="list-group-item list-group-item-action {{ request()->is('admin/product*') && !request()->is('admin/product-gallery*') ? 'active' : '' }}">Products</a>
+          <a href="{{ route('product-gallery.index') }}" class="list-group-item list-group-item-action {{ request()->is('admin/product-gallery*') ? 'active' : '' }}">Product Gallery</a>        
           {{-- <a href="{{ route('category.index') }}" class="list-group-item list-group-item-action {{ request()->is('admin/category') || request()->is('admin/category/create') || request()->is('admin/category/1/edit') ? 'active' : '' }}">Categories</a> --}}
-          <a href="{{ route('category.index') }}" class="list-group-item list-group-item-action {{ request()->is('admin/category*') ? 'active' : '' }}">Categories</a>
-
-
-          
-          <a href="{{ route('store.index') }}" class="list-group-item list-group-item-action {{ request()->is('admin/store*') ? 'active' : '' }}">Store Customer</a>
-
+          <a href="{{ route('category.index') }}" class="list-group-item list-group-item-action {{ request()->is('admin/category*') ? 'active' : '' }}">Categories</a>        
+          <a href="{{ route('store.index') }}" class="list-group-item list-group-item-action {{ (request()->is('admin/store*') || request()->is('store*')) ? 'active' : '' }}">Store Customer</a>
           <a href="{{ route('transaction.index') }}" class="list-group-item list-group-item-action {{ request()->is('admin/transaction*') ? 'active' : '' }}">Transaction</a>
           <a href="{{ route('user.index') }}" class="list-group-item list-group-item-action  {{ request()->is('admin/user*') ? 'active' : '' }}">Users</a>
-          <a href="/index.html" class="list-group-item list-group-item-action">Sign Out</a>
+          <a class="list-group-item list-group-item-action fw-bold" href="{{ route('logout') }}"
+          onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+          <i class="fa fa-sign-out"></i> Log out </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+          </form>
         </div>
       </div>
 
@@ -66,19 +67,17 @@
               <!-- ===== DESKTOP MENU ===== -->
               <ul class="navbar-nav d-none d-lg-flex ms-auto">
                 <li class="nav-item dropdown">
-                  <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-                    data-bs-toggle="dropdown">
+                  {{-- <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                    data-bs-toggle="dropdown"> --}}
                     <!-- <img src="images/icon-user.png" alt="" class="me-2 profile-picture"> -->
                     <img src="/images/icon-user.png" alt="" class="me-2 profile-picture" />
-                    Hi, Angga
+                    Hi, {{Auth::user()->name}}
                   </a>
-                  <div class="dropdown-menu">                                        
+                  {{-- <div class="dropdown-menu">                                        
                     <a href="/" class="dropdown-item">Logout</a>
-                  </div>
-                </li>
-            
+                  </div> --}}
+                </li> 
               </ul>
-
               <!-- ===== MOBILE MENU ===== -->
               <ul class="navbar-nav d-block d-lg-none">
                 <li class="nav-item">

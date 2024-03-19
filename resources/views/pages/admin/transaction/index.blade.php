@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Transaction
+Admin | Tranaction
 @endsection
 
 @section('content')
@@ -57,7 +57,14 @@ Transaction
         columns: [            
             {data: 'id', name: 'id'},            
             {data: 'user.name', name: 'user.name'},                        
-            {data: 'total_price', name: 'total_price'},                 
+            // {data: 'total_price', name: 'total_price'},    
+            { 
+                    data: 'total_price', 
+                    name: 'total_price',
+                    render: function(data) {
+                        return "Rp. " + number_format(data);
+                    }
+                },             
             {data: 'transaction_status', name: 'transaction_status'},                 
             {data: 'created_at', name: 'created_at'},                 
       
@@ -71,10 +78,10 @@ Transaction
         ]
     });
 
-    // Fungsi number_format untuk menambahkan titik sebagai pemisah ribuan
-    // function number_format(number) {
-    //     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    // }
+  // Fungsi number_format untuk menambahkan titik sebagai pemisah ribuan
+  function number_format(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
 </script>
 
 

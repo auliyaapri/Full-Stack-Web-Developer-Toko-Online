@@ -68,10 +68,7 @@ data-aos="fade-up"
                 <div class="card-body">
                     <div class="row d-flex align-items-center">
                         <div class="col-md-1">
-                            <img
-                            src="{{ Storage::url($transaction->product->galleries->first()->photos ?? '') }}"
-                                class="w-75"
-                            />                        
+                            <img src="{{ Storage::url($transaction->product->galleries->first()->photos ?? '') }}" class="w-75" />                        
                         </div>
                         <div class="col-md-4">
                                 {{ $transaction->product->name ?? '' }}

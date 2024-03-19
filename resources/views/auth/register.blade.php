@@ -1,4 +1,9 @@
 @extends('layouts.auth_baru')
+
+@section('title')
+Register
+@endsection
+
 @section('content')
 <div class="page-content page-auth" id="register">
     <div class="d-lg-flex half">
@@ -14,7 +19,7 @@
                         <h3>Register to <strong>WigunaStore</strong></h3>
                         <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.
                         </p>
-                        <form method="POST" action="{{ route('register') }}" class="mt-3">
+                        <form method="POST" action="{{ route('success') }}" class="mt-3">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
@@ -129,10 +134,10 @@
                                 <span class="ml-auto"><a href="{{route('login')}}" class="forgot-pass">Sudah punya akun
                                         ? Login</a></span>
                             </div>
-                            <button type="submit" class="btn btn-success btn-block mt-4"
+                            <button type="submit" class="btn btn-block btn-primary mt-4"
                                 :disabled="this.email_unavailable">
                                 Sign Up Now
-                            </button>
+                            </button>                            
                             {{-- <button class="btn btn-block btn-primary"> Login </button> --}}
                         </form>
                     </div>

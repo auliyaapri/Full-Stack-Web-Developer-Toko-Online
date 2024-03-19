@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Store Product Page')
+@section('title')
+Products
+@endsection
 
 @section('content')
 <div class="page-content page-home">  

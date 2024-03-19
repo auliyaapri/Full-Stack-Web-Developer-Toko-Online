@@ -30,12 +30,12 @@ Store Dashboard Product
                       <div class="product-subtitle">{{$transaction->transaction->user->name}} </div>
                     </div>
                     <div class="col-12 col-md-6">
-                      <div class="product-title mb-2">Product Name</div>
-                      <div class="product-subtitle">Shirup</div>
+                      <div class="product-title mb-2">Nama Produk</div>
+                      <div class="product-subtitle">{{$transaction->product->name}} </div>
                     </div>
                     <div class="col-12 col-md-6">
                       <div class="product-title mb-2">Date of Transaction</div>
-                      <div class="product-subtitle">12 Januari, 2020</div>
+                      <div class="product-subtitle">{{$transaction->transaction->created_at}}</div>
                     </div>
                     <div class="col-12 col-md-6">
                       <div class="product-title mb-2">Payment Status</div>
