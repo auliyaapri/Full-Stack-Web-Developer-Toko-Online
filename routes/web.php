@@ -82,6 +82,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard/transactions', [App\Http\Controllers\DashboardTransactionController::class, 'index'])->name('dashboard-transactions');    
     Route::get('/dashboard/transactions/{id}', [App\Http\Controllers\DashboardTransactionController::class, 'details'])->name('dashboard-transactions-details');
     Route::post('/dashboard/transactions/{id}', [App\Http\Controllers\DashboardTransactionController::class, 'update'])->name('dashboard-transactions-update');
+    
+    Route::post('/dashboard/transactions/{id}/review', [App\Http\Controllers\ReviewController::class, 'add'])->name('dashboard-transactions-add');
+
 
 
     // === DASHBOARD PAGE MY ACCOUNT ===

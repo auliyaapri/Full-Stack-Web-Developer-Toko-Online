@@ -116,36 +116,22 @@ Product Details
       <div class="row">
         <div class="col-12 col-lg-8">
           <ul class="list-unstyled">
+            @foreach ($reviews as $item)
             <li class="media">
               <img src="{{url('/images/icon-testimonial-1.png')}}" alt="" class="me-3 rounded-circle">
               <div class="media-body">
-                <h5 class="mt-2 mb-1">Hazza Rizky</h5>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus at porro totam, repudiandae voluptas
-                quibusdam eum dolorem debitis explicabo magnam sint ullam nisi iste! Voluptatum, iste! Laudantium, nam?
-                Quaerat vel praesentium facere maxime, impedit sunt saepe quod deleniti harum, voluptates officiis earum
-                ipsam, quae reiciendis dolor. Voluptatem doloremque dignissimos quis.
+                <h5 class="mt-2 mb-1">{{$item->user->name}}</h5>
+                <p>
+                  @php $get_rating = $item->rating @endphp               
+                  @for ($i = 1; $i <= $get_rating; $i++)
+                  <i class="fa fa-star" style="color:gold;"></i>                      
+                  @endfor               
+                </p>
+                {{$item->comment}}
               </div>
-            </li>
-            <li class="media">
-              <img src="{{url('/images/icon-testimonial-1.png')}}" alt="" class="me-3 rounded-circle">
-              <div class="media-body">
-                <h5 class="mt-2 mb-1">Hazza Rizky</h5>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus at porro totam, repudiandae voluptas
-                quibusdam eum dolorem debitis explicabo magnam sint ullam nisi iste! Voluptatum, iste! Laudantium, nam?
-                Quaerat vel praesentium facere maxime, impedit sunt saepe quod deleniti harum, voluptates officiis earum
-                ipsam, quae reiciendis dolor. Voluptatem doloremque dignissimos quis.
-              </div>
-            </li>
-            <li class="media">
-              <img src="{{url('/images/icon-testimonial-1.png')}}" alt="" class="me-3 rounded-circle">
-              <div class="media-body">
-                <h5 class="mt-2 mb-1">Hazza Rizky</h5>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus at porro totam, repudiandae voluptas
-                quibusdam eum dolorem debitis explicabo magnam sint ullam nisi iste! Voluptatum, iste! Laudantium, nam?
-                Quaerat vel praesentium facere maxime, impedit sunt saepe quod deleniti harum, voluptates officiis earum
-                ipsam, quae reiciendis dolor. Voluptatem doloremque dignissimos quis.
-              </div>
-            </li>
+            </li>            
+                
+            @endforeach
           </ul>
         </div>
       </div>
@@ -187,3 +173,4 @@ Product Details
     });
 </script>
 @endpush
+

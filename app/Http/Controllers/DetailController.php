@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,8 +24,10 @@ class DetailController extends Controller
                             ->firstOrFail(); // Mengambil data pertama yang ditemukan, jika tidak ada maka akan menghasilkan error 404
      
          // Mengembalikan view detail dengan data produk
+         $reviews = Review::all();
          return view('pages.detail',[
-              'products' => $products // Mengirimkan data produk ke view
+              'products' => $products, // Mengirimkan data produk ke view
+              'reviews' => $reviews
          ]);
      }
      

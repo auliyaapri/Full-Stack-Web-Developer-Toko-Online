@@ -65,7 +65,13 @@ class User extends Authenticatable
     // Di dalam model User
 
     // Di dalam model User
-    public function category(): BelongsTo {
+    public function category(): BelongsTo
+    {
         return $this->belongsTo(Category::class, 'categories_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'users_id');
     }
 }

@@ -56,9 +56,8 @@ Store Dashboard Product
                 </div>
               </div>
               <!-- Baris Baru -->
-              <form action="{{route('dashboard-transactions-update', $transaction->id)}}" method="POST"
-                enctype="multipart/form-data">
-                @csrf
+              {{-- <form action="{{route('dashboard-transactions-update', $transaction->id)}}" method="POST" enctype="multipart/form-data">
+                @csrf --}}
                 <div class="row">
                   <div class="col-12 mt-4 mb-2">
                     <h5>Shipping Information</h5>
@@ -113,6 +112,12 @@ Store Dashboard Product
                   </div>
                   <!-- Resi -->
                   {{-- <h1>as</h1> --}}
+
+
+
+
+
+                  {{-- ===== INI JIKA CUSTOMER NAME SAMA DENGAN YANG SEKARANG LOGIN ===== --}}
                   @php
                   if (Auth::user()->name != $transaction->transaction->user->name) :
                   @endphp
@@ -140,7 +145,7 @@ Store Dashboard Product
                       </template>
                     </div>
                   </div>
-    
+
 
                   <!-- Resi -->
 
@@ -154,10 +159,40 @@ Store Dashboard Product
                 @php
                 endif;
                 @endphp
+              {{-- </form> --}}
+
+              {{-- ===== INI JIKA CUSTOMER NAME BEDA DENGAN YANG SEKARANG LOGIN ===== --}}
+              @php
+              if (Auth::user()->name == $transaction->transaction->user->name) :
+              @endphp
+              <form action="{{route('dashboard-transactions-add', $transaction->transaction->id)}}" method="POST">
+                @csrf
+                <h1>
+                  {{$transaction->transaction->id}}
+                </h1>
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-12 col-md-12">
+                      <div class="product-title mb-2">Rating / Ulasan ASDSADASD</div>
+                      <select name="rating" id="status" class="form-select">
+                        <option selected>Pilih Rating</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                      <textarea name="comment" class="form-control mt-3" placeholder="Leave a comment here"
+                        id="floatingTextarea2" style="height: 100px"></textarea>
+                    </div>
+
+                    <div class="col-12 text-right">
+                      <button type="submit" class="btn btn-success mt-4 px-5 py-2">Save Now</button>
+                    </div>
+                  </div>
+                </div>
               </form>
-
-
-
+              @php endif; @endphp
             </div>
           </div>
         </div>
