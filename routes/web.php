@@ -29,8 +29,6 @@ use App\Http\Controllers\AuthController;
 Auth::routes();
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/logout', [App\Http\Controllers\Auth\LogoutController::class, 'logout'])->name('logout');
-
-
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
@@ -44,13 +42,13 @@ Route::get('/categories/{id}', [App\Http\Controllers\CategoryController::class, 
 Route::get('/details/{id}', [App\Http\Controllers\DetailController::class, 'index'])->name('detail');
 Route::post('/details/{id}', [App\Http\Controllers\DetailController::class, 'add'])->name('detail-add');
 // === CHECKOUT ===
-Route::post('/checkout/callback', [App\Http\Controllers\CheckoutController::class, 'callback'])->name('midtrans-callback');
+// Route::post('/midtrans-callback', [App\Http\Controllers\CheckoutController::class, 'callback']);
+
+// Route::post('/checkout/callback', [App\Http\Controllers\CheckoutController::class, 'callback'])->name('midtrans-callback');
 
 Route::get('/success', [App\Http\Controllers\CartController::class, 'success'])->name('success');
 
 Route::get('/register/success', [App\Http\Controllers\Auth\RegisterController::class, 'success'])->name('success');
-
-
 
 
 // === Middleware / Satapam ===
@@ -72,8 +70,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/dashboard/products', [App\Http\Controllers\DashboardProductController::class, 'store'])->name('dashboard-products-store');
     Route::get('/dashboard/products/{id}', [App\Http\Controllers\DashboardProductController::class, 'details'])->name('dashboard-products-details');
     Route::post('/dashboard/products/{id}', [App\Http\Controllers\DashboardProductController::class, 'update'])->name('dashboard-products-update');
-
-    // == 
     
     Route::post('/dashboard/products/gallery/upload', [App\Http\Controllers\DashboardProductController::class, 'uploadGallery'])->name('dashboard-product-gallery-upload');
     Route::get('/dashboard/products/gallery/delete/{id}', [App\Http\Controllers\DashboardProductController::class, 'deleteGallery'])->name('dashboard-product-gallery-delete');
@@ -83,7 +79,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard/transactions/{id}', [App\Http\Controllers\DashboardTransactionController::class, 'details'])->name('dashboard-transactions-details');
     Route::post('/dashboard/transactions/{id}', [App\Http\Controllers\DashboardTransactionController::class, 'update'])->name('dashboard-transactions-update');
     
-    Route::post('/dashboard/transactions/{id}/review', [App\Http\Controllers\ReviewController::class, 'add'])->name('dashboard-transactions-add');
+    Route::post('/dashboard/transactions/{id}/add_review', [App\Http\Controllers\ReviewController::class,'add'])->name('dashboard-review-add');
+    Route::post('/dashboard/transactions/{id}/update_review', [App\Http\Controllers\ReviewController::class,'update'])->name('dashboard-review-update');
 
 
 
@@ -94,7 +91,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/dashboard/update/{redirect}', [App\Http\Controllers\DashboardSettingController::class, 'update'])->name('dashboard-settings-redirect'); // ini maksudnya redirect ke halaman yang sebelumnya dibuka ya kakaka
     
     // === DASHBOARD PAGE STORE SETTINGS ===
-    Route::get('/dashboard/settings', [App\Http\Controllers\DashboardSettingController::class, 'store'])->name('dashboard-settings-store');
+    Route::get('/dashboard/settings/store', [App\Http\Controllers\DashboardSettingController::class, 'store'])->name('dashboard-settings-store');
     
     
     

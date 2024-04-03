@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Province;
 use Illuminate\Http\Request;
+use App\Models\Regency;
+
 
 use Illuminate\Support\Facades\Auth;
 
@@ -15,8 +18,15 @@ class CartController extends Controller
     public function index()
     {
         $carts = Cart::with(['product','user'])->where('users_id', Auth::user()->id)->get();
+        $regency = Regency::where('id', Auth::user()->regencies_id)->first();
+        $province = Province::where('id', Auth::user()->provinces_id)->first();
+
         return view('pages.cart',[
-            'carts' => $carts
+            'carts' => $carts,
+            'regency'  => $regency,
+            'province'  => $province,
+
+
         ]);
     }
 
@@ -32,51 +42,4 @@ class CartController extends Controller
         return view('pages.success');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

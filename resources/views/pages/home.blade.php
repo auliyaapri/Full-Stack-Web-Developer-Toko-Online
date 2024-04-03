@@ -46,7 +46,6 @@ Home
             {{-- ===== CATEGORIES ===== --}}
             <div class="row">
                 @php $incrementCategory = 0; @endphp
-
                 @forelse ($categories as $category)
                 <div class="col-6 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="{{ $incrementCategory }}">
                     <a href="{{ route('categories-detail', $category->slug) }}" class="component-categories d-block">
@@ -57,7 +56,6 @@ Home
                     </a>
                 </div>
                 @php $incrementCategory += 100; @endphp
-
                 @empty
                 <div class="col-12 text-center py-5" data-aos="fade-up" data-aos-delay="100">
                     No Categories Found
@@ -80,11 +78,13 @@ Home
             </div>
         </div>
         <div class="row">
+
             @php $incrementCategory = 0; @endphp
 
             @forelse ($products as $product)
             {{-- Loop melalui setiap produk --}}
             @foreach ($product->galleries as $gallery) {{-- galleries dapet dari model product relasi kaka --}}
+            
             <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $incrementCategory }}">
 
                 <a href="{{ route('detail', $product->slug) }}" class="component-products d-block">
@@ -95,12 +95,12 @@ Home
                     </div>
                     <div class="products-text">{{ $product->name }}</div>
                     <div class="products-price">Rp. {{ number_format($product->price, 0, ',', '.') }}</div>
-
                 </a>
             </div>
             @php $incrementCategory += 100; @endphp
             @break
             @endforeach
+            
             @empty
             @endforelse
         </div>

@@ -18,7 +18,7 @@ Store Dashboard Product
                 <div class="col-12">
                     <form action="{{route('dashboard-products-store')}}" enctype="multipart/form-data" method="POST">
                         @csrf
-                        <input type="text" name="users_id" id="" value="{{Auth::user()->id}}">
+                        <input type="hidden" name="users_id" id="" value="{{Auth::user()->id}}">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row mb-2" data-aos="fade-up" data-aos-delay="200">

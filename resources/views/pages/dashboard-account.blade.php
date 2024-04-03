@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Admin | Account
+User | Account
 @endsection
 
 @section('content')
@@ -24,14 +24,14 @@ Admin | Account
                                     <div class="col-md-6">
                                         <!-- Name and email -->
                                         <div class="form-group">
-                                            <label for="addressOne">Your Name</label>
+                                            <label for="addressOne">Nama Anda</label>
                                             <input type="text" class="form-control" id="name" name="name"
                                                 value="{{$user->name}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="addressOne">Your Email</label>
+                                            <label for="addressOne">Email Anda</label>
                                             <input type="email" class="form-control" id="email" name="email"
                                                 value="{{$user->email}}">
 
@@ -40,7 +40,7 @@ Admin | Account
                                     <!-- Alamat -->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="addressOne">Address 1</label>
+                                            <label for="addressOne">Alamat 1</label>
                                             <input type="text" class="form-control" id="addressOne" name="address_one"
                                                 value="{{$user->address_one}}">
 
@@ -48,7 +48,7 @@ Admin | Account
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="addressTwo">Address 2</label>
+                                            <label for="addressTwo">Alamat 2</label>
                                             <input type="text" class="form-control" id="addressTwo" name="address_two"
                                                 value="{{$user->address_two}}">
                                         </div>
@@ -56,13 +56,16 @@ Admin | Account
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="provinces_id">Province</label>
+                                            <label for="provinces_id">Provinsi</label>
+                                            @if ($user->provinces_id)
+
                                             <div class="form-control mb-3 bg-secondary-subtle">
                                                 <div v-for="province in provinces" :key="province.id"
                                                     v-if="province.id === {{$user->provinces_id}}">
                                                     @{{ province.name }}
                                                 </div>
                                             </div>
+                                            @endif
 
                                             <select name="provinces_id" id="provinces_id" class="form-select"
                                                 v-model="provinces_id" v-if="provinces">
@@ -70,17 +73,20 @@ Admin | Account
                                                     @{{province.name }}</option>
                                             </select>
                                             <select v-else class="form-control"></select>
-                                            {{-- <h1>{{$user->provinces_id}}</h1> --}}
+                                            <h1>{{$user->provinces_id}}</h1>
                                         </div>
                                     </div>
 
                                     <!-- City -->
                                     <div class="col-md-4">
-                                        <div class="form-group" >
-                                            <label for="regencies_id">City</label>
+                                        <div class="form-group">
+                                            <label for="regencies_id">Kota</label>                                            
+                                            @if ($user->regencies_id)
+
                                             <div class="form-control mb-3 bg-secondary-subtle">
                                                 {{ $regency->name }}
                                             </div>
+                                            @endif
                                             <select name="regencies_id" id="regencies_id" class="form-select"
                                                 v-model="regencies_id" v-if="regencies">
                                                 <option v-for="regency in regencies" :value="regency.id">
@@ -99,14 +105,14 @@ Admin | Account
                                     <!-- County and Mobile -->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="country">Country</label>
+                                            <label for="country">Indonesia</label>
                                             <input type="text" class="form-control" id="country" name="country"
                                                 value="{{$user->country}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="phone_number">Mobile</label>
+                                            <label for="phone_number">Nomor HP</label>
                                             <input type="text" class="form-control" id="phone_number"
                                                 name="phone_number" value="{{$user->phone_number}}">
                                         </div>
@@ -129,7 +135,7 @@ Admin | Account
                                 </div>
                     </form>
 
-                    
+
                     @if ($user->image_profile != NULL)
                     <form action="{{ route('dashboard-settings-account.destroy', $user->id) }}" method="POST">
                         @csrf

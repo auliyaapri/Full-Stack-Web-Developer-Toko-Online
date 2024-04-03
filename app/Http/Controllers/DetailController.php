@@ -22,12 +22,13 @@ class DetailController extends Controller
          $products = Product::with(['galleries', 'user']) // Mengambil data produk beserta galeri dan user yang terkait
                             ->where('slug', $id) // Mencari produk dengan slug yang sama dengan $id
                             ->firstOrFail(); // Mengambil data pertama yang ditemukan, jika tidak ada maka akan menghasilkan error 404
-     
-         // Mengembalikan view detail dengan data produk
-         $reviews = Review::all();
+    
+         $reviews = Review::where('products_id', $products->id)->get();
+         $review_count = Review::where('products_id', $products->id)->get()->count();
          return view('pages.detail',[
               'products' => $products, // Mengirimkan data produk ke view
-              'reviews' => $reviews
+              'reviews' => $reviews,
+              'review_count' => $review_count
          ]);
      }
      

@@ -56,8 +56,8 @@ Product Details
         <div class="row">
           <div class="col-lg-8">
             <h1 class="mt-3">{{ $products->name }}</h1>
-            <div class="owner">By {{ $products->user->store_name }}</div>
-            <div class="owner">By {{ $products->user->name }}</div>
+            <div class="owner">Nama toko user : {{ $products->user->store_name }}</div>
+            <div class="owner">Nama user nya : {{ $products->user->name }}</div>
             <div class="price">Rp. {{ number_format($products->price, 0, ',', '.') }}</div>
           </div>
           <div class="col-lg-2" data-aos="zoom-in">
@@ -110,7 +110,7 @@ Product Details
     <div class="container">
       <div class="row">
         <div class="col-12 col-lg-8 mt-3 mb-3">
-          <h5>Customer Review (3)</h5>
+          <h5>Customer Review ({{$review_count}})</h5>          
         </div>
       </div>
       <div class="row">

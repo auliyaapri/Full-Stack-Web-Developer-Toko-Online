@@ -14,15 +14,12 @@
           <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ request()->is('categories') ? 'active' : '' }}"
+          <a class="nav-link {{ request()->is('categories*') ? 'active' : '' }}"
             href="{{ url('categories') }}">Categories</a>
         </li>
         <li class="nav-item">
           <a class="nav-link {{ request()->is('products') || request()->is('details/*') ? 'active' : '' }}" href="{{ url('products') }}">Products</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Rewards</a>
-        </li>
+        </li>        
         <!-- Jika Belum Login -->
         @guest
         <li class="nav-item">
@@ -45,20 +42,20 @@
 
           </a>
           <div class="dropdown-menu">
-            <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
+            <a href="{{ route('dashboard') }}" class="dropdown-item"><i class="fa fa-dashboard"></i> Dashboard</a>
             @if (Auth::user()->roles == "Admin" ) 
-            <a href="{{ route('admin-dashboard') }}" class="dropdown-item">Dashboard Admin</a>
+            <a href="{{ route('admin-dashboard') }}" class="dropdown-item"><i class="fa fa-cogs"></i> Dashboard Admin</a>
             @endif
             
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ route('logout') }}"
-              onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-              Logout
+            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="fa fa-sign-out"></i> Logout
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-              @csrf
+                @csrf
             </form>
-          </div>
+        </div>
+        
         </li>
         <li class="nav-item d-none d-lg-block">
           <a href="{{ route('cart') }}" class="nav-link d-inline-block">

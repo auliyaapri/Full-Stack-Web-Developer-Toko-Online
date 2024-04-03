@@ -7,17 +7,15 @@ Login
 
 @section('content')
 <div class="d-lg-flex half">
-  <div class="bg order-1 order-md-2"
-    style="background-image: url('https://plus.unsplash.com/premium_photo-1709310749440-bfcae3e84c7e?q=80&w=2012&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
-  </div>
+  <div class="bg order-1 order-md-2" style="background-image: url('/images/surface-91HFUXYi_Jg-unsplash.jpg');"></div>
   <div class="contents order-2 order-md-1">
-
     <div class="container">
       <div class="row align-items-center justify-content-center">
+        <img src="" alt="">
         <div class="col-md-7">
 
           <h3>Login to <strong>WigunaStore</strong></h3>
-          <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
+          <p class="mb-4">Silakan login untuk mulai menikmati berbagai penawaran menarik di WigunaStore.</p>
           <form action="{{route('login')}}" method="POST" class="mt-3">
             @csrf
             <div class="form-group first">

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
 use App\Models\TransactionDetail;
+use Illuminate\Support\Facades\Session;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,11 +39,17 @@ class DashboardTransactionController extends Controller
 
     public function details(Request $request, $id)
     {
-
         $transaction = TransactionDetail::with(['transaction.user', 'product.galleries'])->findOrFail($id);
-        // dd($transaction);
+        // $review = Review::where('users_id', Auth::user()->id)->first();
+
+        // $review = Review::where('users_id', Auth::user()->id)->first() && $transaction->id;
+        $review = Review::where('users_id', Auth::user()->id)->where('transactions_id', $transaction->id)->first();       
+        
+
         return view('pages.dashboard-transactions-details',[
-            'transaction' => $transaction
+            'transaction' => $transaction,
+            'review' => $review,
+            
         ]);
     }
 

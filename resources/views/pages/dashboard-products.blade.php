@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('title')
-Store Dashboard Product
+User | Products
 @endsection
 
 @section('content')
@@ -9,11 +9,10 @@ Store Dashboard Product
 <section class="section-content section-dashboard-home" data-aos="fade-up">
     <div class="container-fluid">
         <div class="dashboard-heading">
-            <h2 class="dashboard-title">Create New Prsssoduct</h2>
+            <h2 class="dashboard-title">Create New Product</h2>
             <p class="dashboard-subtitle">Create your own product
             <p>
         </div>
-
         <div class="dashboard-content">
             <div class="row">
                 <!-- Button -->
@@ -28,22 +27,15 @@ Store Dashboard Product
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <a href="{{route('dashboard-products-details', $product->id)}}" class="card card-dashboard-product d-block">
                         <div class="card-body">
-                            
-                            
                             <img src="{{ Storage::url($product->galleries->first()->photos ?? '') }}" alt="sasassa" class="w-100 mb-2">
-
                             <div class="product-title">{{$product->name}}</div>
                             <div class="product-category">{{$product->category->name}}</div>
                         </div>
                     </a>
                 </div>
-                @endforeach
-        
+                @endforeach        
             </div>
         </div>
     </div>
-
-
-
 </section>
 @endsection

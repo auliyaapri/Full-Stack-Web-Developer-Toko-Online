@@ -26,15 +26,13 @@
       <!-- sidebar -->
       <div class="border-right" id="sidebar-wrapper">
         <div class="sidebar-heading text-center">
-          {{-- <img src="/images/dashboard-store-logo.svg" alt=""> --}}
-          <img src="/images/logo2.png" alt="">
+          <img src="/images/logo2.png" alt="" style="max-width: 150px">
         </div>
         <div class="list-group list-group-flush">
           <a href="{{ route('dashboard') }}"
             class="list-group-item list-group-item-action {{ request()->is('dashboard') ? 'active' : '' }}">Dashboard</a>
           <a href="{{ route('dashboard-product') }}"
-            class="list-group-item list-group-item-action {{ request()->is('dashboard/products*') ? 'active' : '' }}">My
-            Products</a>
+            class="list-group-item list-group-item-action {{ request()->is('dashboard/products*') ? 'active' : '' }}">My Products</a>
 
           <a href="{{ route('dashboard-transactions') }}"
             class="list-group-item list-group-item-action {{ request()->is('dashboard/transactions*') ? 'active' : '' }}">Transactions</a>
@@ -87,17 +85,18 @@
 
                   </a>
                   <div class="dropdown-menu">
-                    <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
-                    {{-- <a href="{{ route('dashboard-settings-account') }}" class="dropdown-item">Settings</a> --}}
+                    <a href="{{ route('dashboard') }}" class="dropdown-item"><i class="fa fa-dashboard mr-2"></i>Dashboard</a> 
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                      onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                      Logout
+                    <a href="{{ route('home') }}" class="dropdown-item"><i class="fa fa-home mr-2"></i>Back to Home</a> 
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fa fa-sign-out mr-2"></i>Logout
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                      @csrf
+                        @csrf
                     </form>
-                  </div>
+                </div>
+                
                 </li>
 
                 <li class="nav-item d-none d-lg-block">

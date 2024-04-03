@@ -1,13 +1,28 @@
 @extends('layouts.app')
 
 @section('title')
-Categories
+    {{-- Mendapatkan URL saat ini --}}
+    <?php $url = url()->current(); ?>
+
+    {{-- Mendapatkan jalur dari URL --}}
+    <?php $path = parse_url($url, PHP_URL_PATH); ?>
+
+    {{-- Memecah jalur menjadi segmen --}}
+    <?php $segments = explode('/', $path); ?>
+
+    {{-- Mendapatkan segmen terakhir --}}
+    <?php $lastSegment = end($segments); ?>
+
+    {{-- Mengonversi segmen terakhir menjadi huruf besar (capital) --}}
+    <?php $capitalizedSegment = ucwords($lastSegment); ?>
+
+    {{-- Output hanya segmen terakhir yang telah dikapitalisasi --}}
+    {{ $capitalizedSegment }}
 @endsection
 
 @section('content')
  <!-- PAGE CONTENT -->
- <div class="page-content page-home">  
-    
+ <div class="page-content page-home">     
   <section class="store-trend-categories">
     <div class="container">
         <div class="row">
@@ -15,11 +30,9 @@ Categories
                 <h5>All Categories</h5>
             </div>
         </div>
-
         {{-- ===== CATEGORIES ===== --}}
         <div class="row">
             @php $incrementCategory = 0; @endphp
-
             @forelse ($categories as $category)
             <div class="col-6 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="{{ $incrementCategory }}">
                 
@@ -31,7 +44,6 @@ Categories
                 </a>
             </div>
             @php $incrementCategory += 100; @endphp
-
             @empty
             <div class="col-12 text-center py-5" data-aos="fade-up" data-aos-delay="100">
                 No Categories Found
@@ -39,7 +51,6 @@ Categories
             @endforelse
         </div>
         {{-- ===== END CATEGORIES ===== --}}
-
     </div>
 </section>
   </div>
@@ -51,14 +62,9 @@ Categories
       <div class="row">
           <div class="col-12" data-aos="fade-up">
             @php
-            $categorySlug = request()->segment(count(request()->segments()));
-        @endphp
-        
-        <h5>All Products {{ ucfirst($categorySlug) }} </h5>
-        
-
-
-
+            $categorySlug = request()->segment(count(request()->segments())); 
+            @endphp
+            <h5 class="mb-3">All Products {{ ucfirst($categorySlug) }} </h5>
           </div>
       </div>
       <div class="row">

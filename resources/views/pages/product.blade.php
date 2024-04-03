@@ -4,13 +4,15 @@
 Products
 @endsection
 
+<br>
+<br>
 @section('content')
-<div class="page-content page-home">  
+<div class="page-content page-home">
     <section class="section-new-products">
         <div class="container">
             <div class="row">
                 <div class="col-12" data-aos="fade-up">
-                    <h5>All Productss</h5>
+                    <h5>All Products</h5>
                 </div>
             </div>
             <div class="row">

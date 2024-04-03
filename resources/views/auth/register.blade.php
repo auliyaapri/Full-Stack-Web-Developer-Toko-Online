@@ -7,24 +7,20 @@ Register
 @section('content')
 <div class="page-content page-auth" id="register">
     <div class="d-lg-flex half">
-        <div class="bg order-1 order-md-2"
-            style="background-image: url('https://plus.unsplash.com/premium_photo-1709310749440-bfcae3e84c7e?q=80&w=2012&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
-        </div>
+        <div class="bg order-1 order-md-2" style="background-image: url('/images/surface-91HFUXYi_Jg-unsplash.jpg');"></div>
         <div class="contents order-2 order-md-1">
 
             <div class="container">
                 <div class="row align-items-center justify-content-center">
-                    <div class="col-md-10">
-
+                    <div class="col-md-10 pt-4">
                         <h3>Register to <strong>WigunaStore</strong></h3>
-                        <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.
-                        </p>
-                        <form method="POST" action="{{ route('success') }}" class="mt-3">
+                        <p class="mb-4">Segera Registrasi untuk Mulai Menikmati Berbagai Penawaran Menarik di WigunaStore.</p>
+                        <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Full Name</label>
+                                        <label>Nama Lengkap</label>
                                         <input v-model="name" id="name" type="text"
                                             class="form-control @error('name') is-invalid @enderror" name="name"
                                             value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -35,10 +31,9 @@ Register
                                         @enderror
                                     </div>
                                 </div>
-                                {{-- email --}}
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Email Address</label>
+                                        <label>Email</label>
                                         <input v-model="email" @change="getUserDataCheck()" id="email" type="email"
                                             class="form-control @error('email') is-invalid @enderror"
                                             :class="{ 'is-invalid': this.email_unavailable }" name="email" required
@@ -50,7 +45,7 @@ Register
                                         @enderror
                                     </div>
                                 </div>
-                                {{-- password --}}
+                                {{-- Password --}}
                                 <div class="col-md-6">
                                     <div class="form-group last mb-3">
                                         <label for="password">Password</label>
@@ -117,29 +112,23 @@ Register
                                 <div class="col-md-12">
                                     <div class="form-group" v-if="is_store_open">
                                         <label>Kategori</label>
-                                        <select name="category" class="form-control">
+                                        <select name="categories_id" class="form-control">
                                             <option value="" disabled>Select Category</option>
                                             @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            <option value="{{ $category->id }}">{{ $category->name }} || {{
+                                                $category->id }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
-
                             </div>
-
-
-
-                            <div class="d-flex align-items-center">
-                                <span class="ml-auto"><a href="{{route('login')}}" class="forgot-pass">Sudah punya akun
-                                        ? Login</a></span>
-                            </div>
+                            <div class="d-flex align-items-center"><span class="ml-auto"><a href="{{route('login')}}"
+                                        class="forgot-pass">Sudah punya akun? Login</a></span> </div>
                             <button type="submit" class="btn btn-block btn-primary mt-4"
-                                :disabled="this.email_unavailable">
-                                Sign Up Now
-                            </button>                            
+                                :disabled="this.email_unavailable"> Sign Up Now</button>
                             {{-- <button class="btn btn-block btn-primary"> Login </button> --}}
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -160,62 +149,61 @@ Register
 <script src="https://unpkg.com/vue-toasted"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
 
 <script>
     // Menggunakan plugin Vue Toasted
     let coba = new Vue({
-        el:"#register", 
+        el: "#register",
+        mounted() {
+            AOS.init();
+        },
         data() {
             return {
-                name:'Auliya apriwiguna',
-                email:'ssd@gmail.com',
+                name: 'Auliya apriwiguna',
+                email: 'ssd@gmail.com',
                 is_store_open: true,
                 store_name: "",
                 email_unavailable: false
             }
         },
-
-        mounted() {
-            
-        },
         methods: {
             getUserDataCheck() {
                 axios.get('{{ route('api-register-check') }}', {
-                    params: {
-                        email: this.email
-                    }
-                })
-                .then(function (response) {
-    const message = response.data === 'Available' ? 'Email anda tersedia! Silahkan lanjut langkah selanjutnya!' : 'Maaf, tampaknya email sudah terdaftar pada sistem kami.';
-    
-    // Menentukan jenis toast berdasarkan respons dari server
-    const type = response.data === 'Available' ? 'success' : 'error';
+                        params: {
+                            email: this.email
+                        }
+                        
+                    })
+                // axios.get('https://6d61-2400-9800-6036-341-f037-8046-f695-b237.ngrok-free.app/api-register-check', {
+                //     params: {
+                //         email: this.email
+                //     }
+                // })
 
-    this.email_unavailable = response.data !== 'Available';
-
-    // Menampilkan data respons pada konsol browser
-    console.log(response.data);
-
-    // Menampilkan alert dengan data respons dengan penundaan
-    setTimeout(() => {
-        Swal.fire({
-            title: 'Informasi',
-            text: message,
-            icon: type, // Success atau Error
-            showConfirmButton: false, // Menghilangkan tombol OK
-            timer: 5000 // Menampilkan alert selama 5 detik
-        });
-    }, 0); // Menunda alert selama 2 detik sebelum ditampilkan
-})
-
-
-                .catch(function (error) {
-                    console.log(error);
-                    
-                })
+                    .then(response => {
+                        const message = response.data === 'Available' ? 'Email anda tersedia! Silahkan lanjut langkah selanjutnya!' : 'Maaf, tampaknya email sudah terdaftar pada sistem kami.';
+                        // Menentukan jenis toast berdasarkan respons dari server
+                        const type = response.data === 'Available' ? 'success' : 'error';
+                        this.email_unavailable = response.data !== 'Available';
+                        // Menampilkan data respons pada konsol browser
+                        console.log(response.data);
+                        // Menampilkan alert dengan data respons dengan penundaan
+                        setTimeout(() => {
+                            Swal.fire({
+                                title: 'Informasi',
+                                text: message,
+                                icon: type, // Success atau Error
+                                showConfirmButton: false, // Menghilangkan tombol OK
+                                timer: 5000 // Menampilkan alert selama 5 detik
+                            });
+                        }, 0); // Menunda alert selama 2 detik sebelum ditampilkan
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
             }
         },
     })
 </script>
-
 @endpush

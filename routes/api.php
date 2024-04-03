@@ -27,4 +27,8 @@ Route::get('regencies/{provinces_id}', [App\Http\Controllers\API\LocationControl
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
-// Route::get('/categories', [App\Http\Controllers\HomeController::class, 'categories']);
+
+Route::post('/midtrans-callback', [App\Http\Controllers\CheckoutController::class, 'callback']);
+
+// Route::post('/checkout/callback', [App\Http\Controllers\CheckoutController::class, 'callback'])->name('midtrans-callback');
+// Route::post('/midtrans-callback', [App\Http\Controllers\CheckoutController::class, 'callback']);
