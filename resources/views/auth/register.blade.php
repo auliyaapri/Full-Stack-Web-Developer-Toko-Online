@@ -7,20 +7,20 @@ Register
 @section('content')
 <div class="page-content page-auth" id="register">
     <div class="d-lg-flex half">
-        <div class="bg order-1 order-md-2" style="background-image: url('/images/surface-91HFUXYi_Jg-unsplash.jpg');"></div>
+        <div class="bg order-1 order-md-2" style="background-image: url('/images/surface-91HFUXYi_Jg-unsplash.jpg'); height: 110vh;"></div>
         <div class="contents order-2 order-md-1">
 
             <div class="container">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-md-10 pt-4">
                         <h3>Register to <strong>WigunaStore</strong></h3>
-                        <p class="mb-4">Segera Registrasi untuk Mulai Menikmati Berbagai Penawaran Menarik di WigunaStore.</p>
+                        <p class="mb-4 text-dark">Segera Registrasi untuk Mulai Menikmati Berbagai Penawaran Menarik di WigunaStore.</p>
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Nama Lengkap</label>
+                                        <label>Nama Lengkssap</label>
                                         <input v-model="name" id="name" type="text"
                                             class="form-control @error('name') is-invalid @enderror" name="name"
                                             value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -122,11 +122,8 @@ Register
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center"><span class="ml-auto"><a href="{{route('login')}}"
-                                        class="forgot-pass">Sudah punya akun? Login</a></span> </div>
-                            <button type="submit" class="btn btn-block btn-primary mt-4"
-                                :disabled="this.email_unavailable"> Sign Up Now</button>
-                            {{-- <button class="btn btn-block btn-primary"> Login </button> --}}
+                            <div class="d-flex align-items-center"><span class="ml-auto"><a href="{{route('login')}}" class="forgot-pass">Sudah punya akun? Login</a></span> </div>
+                            <button type="submit" class="btn btn-block btn-primary mt-4 mb-5":disabled="this.email_unavailable"> Sign Up Now</button>                            
                         </form>
 
                     </div>
@@ -138,13 +135,12 @@ Register
 @endsection
 
 
-
-
 @push('addon-script')
 
-{{-- <script src="/vendor/vue/vue.js'"></script> --}}
+<script src="/vendor/vue/vue.js'"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
 
 <script src="https://unpkg.com/vue-toasted"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

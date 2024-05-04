@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Product;
 use Exception;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
@@ -26,6 +27,7 @@ class CheckoutController extends Controller
 
         // Memperbarui data pengguna kecuali total harga
         $user->update($request->except('total_price'));
+
         // == proses checkout ==
         // Membuat kode unik untuk transaksi
         $code = 'STORE_-' . mt_rand(000000, 999999);
@@ -34,11 +36,13 @@ class CheckoutController extends Controller
 
         // == Transaction create ==
         // Membuat entri transaksi baru
+
         $transaction = Transaction::create([
             'users_id' => Auth::user()->id,
             'insurence_price' => 0,
             'shipping_price' => 0,
             'total_price' => $request->total_price,
+            
             'transaction_status' => 'PENDING',
             'code' => $code
         ]);
@@ -46,16 +50,22 @@ class CheckoutController extends Controller
         // Menyimpan detail transaksi untuk setiap barang dalam keranjang
         foreach ($carts as $cart) {
             $trx = 'TRX-' . mt_rand(0000, 9999);
-
+        
             TransactionDetail::create([
                 'transactions_id' => $transaction->id,
                 'products_id' => $cart->product->id,
+                // 'price' => $transaction->total_price,
                 'price' => $cart->product->price,
+                'quantity' => $cart->quantity,
                 'shipping_status' => 'PENDING',
                 'resi' => '',
                 'code' => $trx
             ]);
+        
+            // Mengurangi stok produk berdasarkan jumlah yang dibeli
+            Product::where('id', $cart->product->id)->decrement('quantity', $cart->quantity);
         }
+        
         // ====== ini masihg jajajl =====
         // $buyTransaction = TransactionDetail::with(['transaction.user', 'product.galleries'])->whereHas('transaction', function ($transaction) {
         //     $transaction->where('users_id', Auth::user()->id);
@@ -73,7 +83,7 @@ class CheckoutController extends Controller
             $item_details[] = [
                 'id' => $transaction->product->id,
                 'name' => $transaction->product->name,
-                'quantity' => 1,
+                'quantity' => $transaction->quantity,
                 'price' => $transaction->price,
                 'subtotal' => $transaction->total_price,
             ];

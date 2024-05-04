@@ -37,49 +37,67 @@ Store Cart Page
                 <td>Foto / Gambar</td>
                 <td>Nama &amp; Penjual</td>
                 <td>Harga</td>
+                <td>Jumlah</td>
                 <td>Aksi</td>
               </tr>
             </thead>
 
             
             <tbody>
-              @php $totalPrice = 0 @endphp
+              @php 
+              $totalPrice = 0; // Inisialisasi total harga
+              @endphp
+          
               <!-- Memeriksa apakah ada data pada tabel cart -->
               @if ($carts->isNotEmpty())
-              @foreach ($carts as $cart)
-              <tr>
-                <!-- Product Image -->
-                <td style="width: 20%;">
-                  @if ($cart->product->galleries)
-                  <img src="{{ Storage::url($cart->product->galleries->first()->photos) }}" alt="" class="cart-image" />
-                  @endif
-                </td>
-                <!-- Product Name & Seller -->
-                <td style="width: 35%;">
-                  <div class="product-title">{{ $cart->product->name }}</div>                  
-                  <div class="product-subtitle">by {{ $cart->product->user->store_name }}</div>
-                </td>
-                <!-- Product Price -->
-                <td style="width: 35%;">
-                  <div class="product-title">Rp. {{ number_format($cart->product->price, 0, ',', '.') }}</div>
-                </td>
-                <!-- Remove Button -->
-                <td style="width: 20%;">
-                  <form action="{{ route('cart-delete', $cart->id) }}" method="POST">
-                    @method('DELETE')
-                    @csrf
-                    <button class="btn btn-remove-cart" type="submit">Remove</button>
-                  </form>
-                </td>
-              </tr>
-              @php $totalPrice += $cart->product->price @endphp
-              @endforeach
+                  @foreach ($carts as $cart)
+                      <tr>
+                          <!-- Product Image -->
+                          <td style="width: 20%;">
+                              @if ($cart->product->galleries)
+                                  <img src="{{ Storage::url($cart->product->galleries->first()->photos) }}" alt="" class="cart-image" />
+                              @endif
+                          </td>
+                          <!-- Product Name & Seller -->
+                          <td style="width: 35%;">
+                              <div class="product-title">{{ $cart->product->name }}</div>                  
+                              <div class="product-subtitle">by {{ $cart->product->user->store_name }}</div>
+                          </td>
+                          <!-- Product Price -->
+                          <td style="width: 35%;">
+                              @php 
+                              $harga = $cart->product->price * $cart->quantity; // Hitung harga per produk
+                              $totalPrice += $harga; // Tambahkan harga produk ke total harga
+                              @endphp
+                              <div class="product-title">Rp. {{ number_format($harga, 0, ',', '.') }}</div>
+                          </td>
+                          <td style="width: 35%;">
+                              <div class="product-title"> {{ $cart->quantity }}</div>
+                          </td>
+                          
+                          <!-- Remove Button -->
+                          <td style="width: 20%;">
+                              <form action="{{ route('cart-delete', $cart->id) }}" method="POST">
+                                  @method('DELETE')
+                                  @csrf
+                                  <button class="btn btn-remove-cart" type="submit"><i class="fa fa-trash"></i> Hapus</button>
+                              </form>
+                          </td>
+                      </tr>
+                  @endforeach
+          
+                  <!-- Menampilkan total harga -->
+                  <tr>
+                      <td colspan="2" class="text-right"><strong>Total Harga:</strong></td>
+                      <td colspan="2"><strong>Rp. {{ number_format($totalPrice, 0, ',', '.') }}</strong></td>
+                  </tr>
               @else
-              <tr>
-                <td colspan="4" class="text-center py-5">No items in cart.</td>
-              </tr>
+                  <tr>
+                      <td colspan="4" class="text-center py-5">Tidak ada barang dalam keranjang.</td>
+                  </tr>
               @endif
-            </tbody>
+          </tbody>
+          
 
           </table>
         </div>
@@ -90,7 +108,7 @@ Store Cart Page
           <hr style="border-width: 4px;">
         </div>
         <div class="col-12">
-          <h2 class="mb-4">Shipping Details</h2>      
+          <h2 class="mb-4">Shipping Details</h2>
         </div>
       </div>
       <!-- Shipping Form -->
@@ -98,9 +116,10 @@ Store Cart Page
       @if ($carts->first()->user->address_one && $carts->first()->user->address_two &&
       $carts->first()->user->provinces_id && $carts->first()->user->regencies_id)
       <!-- Tampilkan form checkout -->
-      <form action="{{route('checkout')}}" id="locations" enctype="multipart/form-data" method="POST">
+      <form id="checkoutForm" action="{{ route('checkout') }}" id="locations" enctype="multipart/form-data" method="POST" target="_blank">
         @csrf
-        <input type="hidden" name="total_price" value="{{$totalPrice}}">
+        
+        <input type="hidden" name="total_price" value="{{$totalPrice}}" class="form-control">
         <!-- Address Fields -->
         <div class="row mb-2" data-aos="fade-up" data-aos-delay="200">
           <!-- Address 1 -->
@@ -147,15 +166,7 @@ Store Cart Page
               <input type="text" class="form-control" id="zip_code" name="zip_code"
                 value="{{$carts->first()->user->zip_code}}" disabled>
             </div>
-          </div>
-          <!-- Country -->
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="country">Country</label>
-              <input type="text" class="form-control" id="country" name="country"
-                value="{{$carts->first()->user->country}}" disabled>
-            </div>
-          </div>
+          </div>  
           <!-- Phone Number -->
           <div class="col-md-6">
             <div class="form-group">
@@ -179,30 +190,30 @@ Store Cart Page
         <!-- Price and Checkout Button -->
         <div class="row" data-aos="fade-up" data-aos-delay="200">
           <!-- Taxes and Fees -->
-          <div class="col-4 col-md-2">
-            <div class="product-title">$10</div>
-            <div class="product-subtitle">Country Tax</div>
-          </div>
           <div class="col-4 col-md-3">
-            <div class="product-title">$280</div>
-            <div class="product-subtitle">Product Insurance</div>
-          </div>
-          <div class="col-4 col-md-2">
-            <div class="product-title">$280</div>
-            <div class="product-subtitle">Product Insurance</div>
-          </div>
-          <!-- Total Price -->
-          <div class="col-4 col-md-2">
+            @php
+            $totalQuantity = 0;
+            
+            foreach ($carts as $cart) {
+                $totalQuantity += $cart->quantity;
+            }
+            @endphp
+            <div class="product-title">{{ $totalQuantity }}</div>
+            <div class="product-subtitle mt-1">Jumlah Produk:</div>
+        </div>        
+          <div class="col-4 col-md-3">
             <div class="product-title text-success">
               @php
               echo "Rp. ". number_format($totalPrice, 0, ',', '.'); // tampilkan total jumlah
               @endphp
             </div>
-            <div class="product-subtitle">Total Belanja</div>
+            <div class="product-subtitle mt-1">Total Belanja</div>
           </div>
           <!-- Checkout Button -->
-          <div class="col-8 col-md-3">
-            <button type="submit" class="btn btn-success mt-4 px-4 btn-block">Checkout Now</button>
+          <div class="col-8 col-md-6">
+            {{-- <button type="submit" class="btn btn-success mt-4 px-4 btn-block">Checkout Now</button> --}}            
+            <button type="button" onclick="submitForm()" class="btn btn-success mt-4 px-4 btn-block">Checkout Now</button>
+
           </div>
         </div>
       </form>
@@ -232,6 +243,9 @@ Store Cart Page
 <script src="/vendor/vue/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+    function submitForm() {
+        document.getElementById('checkoutForm').submit();
+    }
   var locations = new Vue({
       // Menghubungkan dengan elemen HTML dengan ID 'locations'
       el: "#locations",

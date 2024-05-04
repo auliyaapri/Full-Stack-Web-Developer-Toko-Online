@@ -36,7 +36,7 @@ Store Dashboard Product
                                         </div>
                                     </div>
                                     <!-- Category -->
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="province">Category</label>
                                             <select class="form-select" aria-label="Default select example"
@@ -45,6 +45,13 @@ Store Dashboard Product
                                                 <option value="{{$category->id}}">{{$category->name}}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                    </div>
+                                    <!-- Category -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="quantity">Quantity</label>
+                                                <input type="number" class="form-control" name="quantity">
                                         </div>
                                     </div>
                                     <!-- DESCRIPTION -->                                

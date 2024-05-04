@@ -24,8 +24,7 @@ Admin | User
                             <div class="table-responsive">
                                 <table class="table table-hover scroll-horizontal-vertical w-100" id="crudTable">
                                     <thead>
-                                        <tr>
-                                            {{-- <th>ID</th>                                             --}}
+                                        <tr>                                            
                                             <th>No</th>
                                             <th>Nama</th>
                                             <th>Email</th>                                            
@@ -35,8 +34,7 @@ Admin | User
                                     <tbody>
                                         @php $no = 1; @endphp
                                         @foreach ($users as $user)
-                                        <tr>
-                                            {{-- <td>{{ $user->id }}</td> --}}
+                                        <tr>                                            
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
@@ -62,7 +60,6 @@ Admin | User
                                         </tr>
                                         @endforeach
                                     </tbody>
-                                    
                                 </table>
                             </div>
                         </div>

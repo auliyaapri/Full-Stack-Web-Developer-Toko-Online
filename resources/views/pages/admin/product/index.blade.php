@@ -21,7 +21,7 @@ Admin | Product
                         <div class="card-body">
                             <a href="{{route('product.create')}}" class="btn btn-primary mb-3">+ Tambah Product Baru</a>
                             <div class="table-responsive">
-                                <table class="table table-hover scroll-horizontal-vertical w-100" id="crudTable">
+                                <table class="table table-hover scroll-horizontal-vertical w-100" >
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -33,6 +33,37 @@ Admin | Product
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php $no = 1; @endphp
+
+                                        @foreach ($products as $product)
+                                        <tr>
+                                            <td>{{$product->id}}</td>
+                                            <td>{{$product->name}}</td>
+                                            <td>{{$product->user->name}}</td>
+                                            <td>{{$product->category->name}}</td>
+                                            <td>Rp. {{ number_format($product->price, 0, ',', '.') }}</td>
+                                            <td>        
+                                                <div class="btn-group">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-bs-toggle="dropdown">
+                                                            Aksi
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a href="{{ route('product.edit', $product->id) }}" class="dropdown-item">
+                                                                Sunting
+                                                            </a>
+                                                            <form action="{{ route('product.destroy', $product->id) }}" method="POST">
+                                                                @method('delete')
+                                                                @csrf
+                                                                <button type="submit" class="dropdown-item text-danger">Hapus</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                            
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -48,39 +79,11 @@ Admin | Product
 
 @push('addon-script')
 <script>
-    // AJAX DataTablenn
-        var datatable = $('#crudTable').DataTable({
-            processing: true,
-            serverSide: true,
-            ordering: true,
-            ajax: {
-                url: '{!! url()->current() !!}',
-            },
-            columns: [
-                { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' },
-                { data: 'user.name', name: 'user.name' },
-                { data: 'category.name', name: 'category.name' },
-                { 
-                    data: 'price', 
-                    name: 'price',
-                    render: function(data) {
-                        return "Rp. " + number_format(data);
-                    }
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false,
-                    width: '15%'
-                },
-            ]
-        });
-
+    
+    
     // Fungsi number_format untuk menambahkan titik sebagai pemisah ribuan
-    function number_format(number) {
-        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    }
+    // function number_format(number) {
+    //     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    // }
 </script>
 @endpush

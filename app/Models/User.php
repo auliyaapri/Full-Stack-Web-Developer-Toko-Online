@@ -35,8 +35,7 @@ class User extends Authenticatable
         'address_two',
         'provinces_id',
         'regencies_id',
-        'zip_code',
-        'country',
+        'zip_code',        
         'phone_number',
         'image_profile'
 

@@ -72,15 +72,14 @@ User | Account
                                                 <option v-for="province in provinces" :value="province.id">
                                                     @{{province.name }}</option>
                                             </select>
-                                            <select v-else class="form-control"></select>
-                                            <h1>{{$user->provinces_id}}</h1>
+                                            <select v-else class="form-control"></select>                                            
                                         </div>
                                     </div>
 
                                     <!-- City -->
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="regencies_id">Kota</label>                                            
+                                            <label for="regencies_id">Kota</label>
                                             @if ($user->regencies_id)
 
                                             <div class="form-control mb-3 bg-secondary-subtle">
@@ -97,20 +96,13 @@ User | Account
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="postalCode">Postal Code</label>
+                                            <label for="postalCode">Kode Pos</label>
                                             <input type="text" class="form-control" id="postalCode" name="zip_code"
                                                 value="{{$user->zip_code}}">
                                         </div>
                                     </div>
-                                    <!-- County and Mobile -->
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="country">Indonesia</label>
-                                            <input type="text" class="form-control" id="country" name="country"
-                                                value="{{$user->country}}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
+                                    <!-- County and Mobile -->                             
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="phone_number">Nomor HP</label>
                                             <input type="text" class="form-control" id="phone_number"
@@ -207,3 +199,6 @@ User | Account
 </script>
 
 @endpush
+
+{{-- php artisan make:migration add_quantity_to_products_table --table=products --}}
+

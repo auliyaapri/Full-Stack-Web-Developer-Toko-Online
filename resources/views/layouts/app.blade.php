@@ -12,6 +12,9 @@
     <link rel="icon" type="image/x-icon" href="/images/img_title.png">
     {{-- === STYLE === --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+
+    
     @stack('prepand-style')
     @include('includes.style')
     @stack('addon-style')

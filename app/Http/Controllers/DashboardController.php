@@ -24,7 +24,8 @@ class DashboardController extends Controller
                             ->whereHas('product', function ($product) {
                                 // Memfilter hanya produk yang dimiliki oleh pengguna yang sedang login
                                 $product->where('users_id', Auth::user()->id);
-                            });
+                            })->latest()->limit(5);
+
                    
     
         // Menghitung total pendapatan dari transaksi

@@ -15,7 +15,8 @@ Product Details
           <nav>
             <ol class="breadcrumb">
               <li class="breadcrumb-item">
-                <a href="">Home</a>
+                <a href="{{ url('/') }}">Home</a>
+                
               </li>
               <li class="breadcrumb-item active">Products Details</li>
             </ol>
@@ -35,13 +36,10 @@ Product Details
         </div>
         <div class="col-lg-2">
           <div class="row">
-            <div class="col-3 col-lg-12 mt-2 mt-lg-0" v-for="(photo_bre, index) in photos" :key="photo_bre.id"
-              data-aos="zoom-in" data-aos-delay="100">
-
+            <div class="col-3 col-lg-12 mt-2 mt-lg-0" v-for="(photo_bre, index) in photos" :key="photo_bre.id" data-aos="zoom-in" data-aos-delay="100">
               <!-- Agar ketika di klik gambar berubah -->
               <a href="#" @click="changeActive(index)">
-                <img :src="photo_bre.url" alt="" class="w-100 thumbnail-image"
-                  :class="{active: index == activePhoto}" />
+                <img :src="photo_bre.url" alt="" class="w-100 thumbnail-image" :class="{active: index == activePhoto}" />
               </a>
             </div>
           </div>
@@ -58,20 +56,68 @@ Product Details
             <h1 class="mt-3">{{ $products->name }}</h1>
             <div class="owner">Nama toko user : {{ $products->user->store_name }}</div>
             <div class="owner">Nama user nya : {{ $products->user->name }}</div>
-            <div class="price">Rp. {{ number_format($products->price, 0, ',', '.') }}</div>
+            <div class="d-flex justify-content-between">
+              <div class="price">Rp. {{ number_format($products->price, 0, ',', '.') }}</div>
+            <div class="stok">Stok : {{ $products->quantity}}</div>
+            </div>
+            
+
           </div>
-          <div class="col-lg-2" data-aos="zoom-in">
+          <div class="col-lg-4" data-aos="zoom-in">
             @auth
 
             <form action="{{ route('detail-add', $products->id) }}" method="POST" enctype="multipart/form-data">
               @csrf
-              <button type="submit" class="btn btn-success text-white btn-block mb-3">Add to Cart</button>
+              
+              @if ($products->user->store_status == 0 && $products->user->name !== $user->name)
+              <button class="btn btn-danger text-white btn-block mb-3 disabled">Toko tutup sementara waktu</button>
+              @endif
+              
+              @if ($products->quantity <= 0 )
+              <button class="btn btn-danger text-white btn-block mb-3 disabled">Mohon Maaf Barang Habis</button>
+              @endif
+
+              
+              @if ($products->user->store_status == 1 && $products->user->name !== $user->name)
+              {{-- USER ID --}}
+              <input type="hidden" class="form-control" value="{{Auth::user()->id}}" name="users_id">  
+              {{-- product id --}}
+              <input type="hidden" class="form-control" value="{{$products->id}}" name="products_id"> 
+                            
+
+              @if ($products->quantity > 0)
+
+              <div class="d-flex">
+                <input type="number" class="form-control mb-3 w-25 me-2" name="quantity" required>
+                <button type="submit" class="btn btn-success text-white btn-block mb-3 w-100">Add to Cart</button>
+              </div>     
+              
+              @endif
+              
+              @endif
+
+              @if ($products->user->name == $user->name)
+                <a href="{{ url('dashboard/products/'.$products->id) }}" class="btn btn-warning text-white btn-block mb-3">View Detail</a>
+              @endif
+         
+
+
             </form>
             @else
 
-            {{-- <a href="{{route('login')}}" class="btn btn-success text-white btn-block mb-3"
-              onclick="showLoginAlert()">Add to Cart</a> --}}
+          
+            
+              @if (!Auth::check() && $products->quantity < 1)
+                <button class="btn btn-danger text-white btn-block mb-3 disabled">Mohon Maaf Barang Habis</button>
+              @endif
+        
+              @if (!Auth::check() && $products->quantity > 1)
             <button class="btn btn-success text-white btn-block mb-3" onclick="showLoginAlert()">Add to Cart</button>
+            @endif
+
+          
+            
+            {{-- <button class="btn btn-success text-white btn-block mb-3" onclick="showLoginAlert()">Add to Cart</button> --}}
             <script>
               function showLoginAlert() {
                   Swal.fire({
@@ -84,7 +130,7 @@ Product Details
                       window.location.href = "{{ route('login') }}";
                   });
               }
-          </script>            
+            </script>
             @endauth
           </div>
 
@@ -100,7 +146,6 @@ Product Details
       <div class="row">
         <div class="col-12 col-lg-8">
           <p>{!! $products->description !!}</p>
-          <p>lorem</p>
         </div>
       </div>
     </div>
@@ -110,7 +155,7 @@ Product Details
     <div class="container">
       <div class="row">
         <div class="col-12 col-lg-8 mt-3 mb-3">
-          <h5>Customer Review ({{$review_count}})</h5>          
+          <h5>Customer Review ({{$review_count}})</h5>
         </div>
       </div>
       <div class="row">
@@ -122,15 +167,14 @@ Product Details
               <div class="media-body">
                 <h5 class="mt-2 mb-1">{{$item->user->name}}</h5>
                 <p>
-                  @php $get_rating = $item->rating @endphp               
-                  @for ($i = 1; $i <= $get_rating; $i++)
-                  <i class="fa fa-star" style="color:gold;"></i>                      
-                  @endfor               
+                  @php $get_rating = $item->rating @endphp
+                  @for ($i = 1; $i <= $get_rating; $i++) <i class="fa fa-star" style="color:gold;"></i>
+                    @endfor
                 </p>
                 {{$item->comment}}
               </div>
-            </li>            
-                
+            </li>
+
             @endforeach
           </ul>
         </div>
@@ -173,4 +217,3 @@ Product Details
     });
 </script>
 @endpush
-

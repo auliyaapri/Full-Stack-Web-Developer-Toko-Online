@@ -15,7 +15,7 @@ Login
         <div class="col-md-7">
 
           <h3>Login to <strong>WigunaStore</strong></h3>
-          <p class="mb-4">Silakan login untuk mulai menikmati berbagai penawaran menarik di WigunaStore.</p>
+          <p class="mb-4 text-dark">Silakan login untuk mulai menikmati berbagai penawaran menarik di WigunaStore.</p>
           <form action="{{route('login')}}" method="POST" class="mt-3">
             @csrf
             <div class="form-group first">

@@ -21,49 +21,59 @@ class CategoryController extends Controller
     
     public function index()
     {
-        // Memeriksa apakah request yang diterima adalah ajax request
-        if (request()->ajax()) {
-            // Membuat query builder untuk model Category
-            $query = Category::query();
+        $categories = Category::all();
+        return view('pages.admin.category.index',[
+            'categories' => $categories
+        ]);
 
-            // Menggunakan datatables untuk memproses data dari query builder
-            return DataTables::of($query)
-                // Menambahkan kolom tambahan ('action') menggunakan fungsi callback
-                ->addColumn('action', function ($item) {
-                    // Markup HTML yang berisi aksi-aksi yang akan ditampilkan di dalam tabel
-                    return '
-                    <div class="btn-group">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-bs-toggle="dropdown">
-                                Aksi
-                            </button>
-                            <div class="dropdown-menu">
-                                <a href="' . route('category.edit', $item->id) . '" class="dropdown-item">
-                                    Sunting
-                                </a>
-                                <form action="' . route('category.destroy', $item->id) . '" method="POST">
-                                    ' . method_field('delete') . csrf_field() . '
-                                    <button type="submit" class="dropdown-item text-danger">Hapus</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                ';
-                })
-                // Mengedit kolom 'photo' untuk menampilkan gambar jika tersedia
-                ->editColumn('photo', function ($item) {
-                    // Mengecek apakah photo tersedia
-                    return $item->photo ? '<img src="' . Storage::url($item->photo) . '" style="max-height: 40px;" />' : '';
-                })
-                // Menggunakan method rawColumns() untuk memberitahu datatables bahwa kolom 'action' dan 'photo' merupakan markup HTML yang sudah di-render dan tidak perlu di-escape
-                ->rawColumns(['action', 'photo'])
-                // Menggunakan method make() untuk membuat dan menampilkan datatables, dengan parameter true menandakan bahwa data akan langsung dikirim ke client
-                ->make(true);
-        }
 
-        // Jika request bukan ajax request, maka akan mereturn view yang akan menampilkan halaman dengan datatables untuk kategori
-        return view('pages.admin.category.index');
+        
     }
+    // public function index()
+    // {
+    //     // Memeriksa apakah request yang diterima adalah ajax request
+    //     if (request()->ajax()) {
+    //         // Membuat query builder untuk model Category
+    //         $query = Category::query();
+
+    //         // Menggunakan datatables untuk memproses data dari query builder
+    //         return DataTables::of($query)
+    //             // Menambahkan kolom tambahan ('action') menggunakan fungsi callback
+    //             ->addColumn('action', function ($item) {
+    //                 // Markup HTML yang berisi aksi-aksi yang akan ditampilkan di dalam tabel
+    //                 return '
+    //                 <div class="btn-group">
+    //                     <div class="dropdown">
+    //                         <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-bs-toggle="dropdown">
+    //                             Aksi
+    //                         </button>
+    //                         <div class="dropdown-menu">
+    //                             <a href="' . route('category.edit', $item->id) . '" class="dropdown-item">
+    //                                 Sunting
+    //                             </a>
+    //                             <form action="' . route('category.destroy', $item->id) . '" method="POST">
+    //                                 ' . method_field('delete') . csrf_field() . '
+    //                                 <button type="submit" class="dropdown-item text-danger">Hapus</button>
+    //                             </form>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             ';
+    //             })
+    //             // Mengedit kolom 'photo' untuk menampilkan gambar jika tersedia
+    //             ->editColumn('photo', function ($item) {
+    //                 // Mengecek apakah photo tersedia
+    //                 return $item->photo ? '<img src="' . Storage::url($item->photo) . '" style="max-height: 40px;" />' : '';
+    //             })
+    //             // Menggunakan method rawColumns() untuk memberitahu datatables bahwa kolom 'action' dan 'photo' merupakan markup HTML yang sudah di-render dan tidak perlu di-escape
+    //             ->rawColumns(['action', 'photo'])
+    //             // Menggunakan method make() untuk membuat dan menampilkan datatables, dengan parameter true menandakan bahwa data akan langsung dikirim ke client
+    //             ->make(true);
+    //     }
+
+    //     // Jika request bukan ajax request, maka akan mereturn view yang akan menampilkan halaman dengan datatables untuk kategori
+    //     return view('pages.admin.category.index');
+    // }
 
 
 

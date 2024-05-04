@@ -23,13 +23,15 @@ class DetailController extends Controller
                             ->where('slug', $id) // Mencari produk dengan slug yang sama dengan $id
                             ->firstOrFail(); // Mengambil data pertama yang ditemukan, jika tidak ada maka akan menghasilkan error 404
     
-         $reviews = Review::where('products_id', $products->id)->get();
-         $review_count = Review::where('products_id', $products->id)->get()->count();
-         return view('pages.detail',[
-              'products' => $products, // Mengirimkan data produk ke view
-              'reviews' => $reviews,
-              'review_count' => $review_count
-         ]);
+                            $user = Auth::user();
+                            $reviews = Review::where('products_id', $products->id)->get();
+                            $review_count = Review::where('products_id', $products->id)->get()->count();
+                            return view('pages.detail', [
+                                'user' => $user,
+                                'products' => $products, // Mengirimkan data produk ke view
+                                'reviews' => $reviews,
+                                'review_count' => $review_count
+                            ]);
      }
      
 
@@ -41,10 +43,15 @@ class DetailController extends Controller
             dd('oke');
         }
         
-         $data = [
-          'products_id' => $id,
-          'users_id' => Auth::user()->id
-         ];
+
+        
+        $data = $request->all();
+        // dd($data);
+        //  $data = [
+        //   'products_id' => $id,
+        //   'users_id' => Auth::user()->id,
+        //   'quantity' => 1
+        //  ];
          Cart::create($data);
          return redirect()->route('cart');
      }

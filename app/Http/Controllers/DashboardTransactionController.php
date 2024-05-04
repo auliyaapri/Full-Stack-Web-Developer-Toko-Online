@@ -21,15 +21,17 @@ class DashboardTransactionController extends Controller
         $sellTransactions = TransactionDetail::with(['transaction.user', 'product.galleries'])
             ->whereHas('product', function ($product) {
                 $product->where('users_id', Auth::user()->id);
-            })->get();
+            })->orderBy('created_at', 'desc')
+            ->get();
 
         // Untuk pembeli apa saja yang sudah di beli
         $buyTransaction = TransactionDetail::with(['transaction.user', 'product.galleries'])
             ->whereHas('transaction', function ($transaction) {
                 // Memfilter hanya produk yang dimiliki oleh pengguna yang sedang login
                 $transaction->where('users_id', Auth::user()->id);
-            })->get();
-        
+            })->orderBy('created_at', 'desc')
+            ->get();
+
 
         return view('pages.dashboard-transactions', [
             'sellTransactions' => $sellTransactions,
@@ -40,16 +42,20 @@ class DashboardTransactionController extends Controller
     public function details(Request $request, $id)
     {
         $transaction = TransactionDetail::with(['transaction.user', 'product.galleries'])->findOrFail($id);
-        // $review = Review::where('users_id', Auth::user()->id)->first();
 
-        // $review = Review::where('users_id', Auth::user()->id)->first() && $transaction->id;
-        $review = Review::where('users_id', Auth::user()->id)->where('transactions_id', $transaction->id)->first();       
+
+        // Memeriksa apakah pengguna yang terautentikasi sama dengan pengguna yang terkait dengan transaksi
+        if ($transaction->transaction->users_id !== Auth::user()->id) {
+            abort(403); // Jika tidak sama, kembalikan respons 403 (Forbidden)
+        }
         
+        // $review = Review::where('users_id', Auth::user()->id)->where('transactions_id', $transaction->id)->first();
+        $review = Review::where('users_id', Auth::user()->id)->where('transactions_id', $transaction->transaction->id)->first();
 
-        return view('pages.dashboard-transactions-details',[
+        // Mengembalikan view dengan data yang diperlukan
+        return view('pages.dashboard-transactions-details', [
             'transaction' => $transaction,
             'review' => $review,
-            
         ]);
     }
 

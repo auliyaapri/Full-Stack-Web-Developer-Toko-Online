@@ -9,8 +9,7 @@ Store Dashboard Product
  <section class="section-content section-dashboard-home" data-aos="fade-up">
     <div class="container-fluid">
       <div class="dashboard-heading">
-        <h2 class="dashboard-title fw-bold">{{$products->name}}</h2>
-        <h1>id : {{$products->id}}</h1>
+        <h2 class="dashboard-title fw-bold">{{$products->name}}</h2>        
         <p class="dashboard-subtitle">Product <span class="text-muted">Details</span><p>
       </div>
       <div class="dashboard-content">
@@ -38,12 +37,18 @@ Store Dashboard Product
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="addressOne">Price</label>
-                        <input type="number" class="form-control" id="price" name="price" value="{{ $products->price }}">
-                        
+                        <input type="number" class="form-control" id="price" name="price" value="{{ $products->price }}">                        
                       </div>
                     </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="addressOne">Quantity</label>
+                        <input type="number" class="form-control" id="quantity" name="quantity" value="{{ $products->quantity	 }}">                        
+                      </div>
+                    </div>
+
                     <!-- Category -->
-                    <div class="col-md-12">
+                    <div class="col-md-8">
                       <div class="form-group">
                         <label for="province">Category</label>
                         <select class="form-control" aria-label="Default select example" name="categories_id"
@@ -143,11 +148,4 @@ Store Dashboard Product
   
   </script>
 
-<button type="button" class="btn-upload btn btn-secondary btn-block mt-3" onclick="thisFileUpload()">
-  Add Photo
-</button>
-
-
-
-    
 @endpush

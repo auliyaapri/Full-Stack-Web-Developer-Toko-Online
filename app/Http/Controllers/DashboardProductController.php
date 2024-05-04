@@ -71,6 +71,8 @@ class DashboardProductController extends Controller
             'categories' => $categories
         ]);
     }
+    
+
     public function store(ProductRequest $request)
     {
         $data = $request->all();
@@ -88,14 +90,12 @@ class DashboardProductController extends Controller
         return redirect()->route('dashboard-product');
     }
 
+
     public function update(ProductRequest $request, $id)
     {
         $data = $request->all();
         $item = Product::findOrFail($id); // Menggunakan $id sebagai parameter
-
         $data['slug'] = Str::slug($request->name);
-
-
         $item->update($data); // Menyimpan perubahan data
         return redirect()->route('dashboard-product');
     }

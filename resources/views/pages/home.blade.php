@@ -90,7 +90,7 @@ Home
                 <a href="{{ route('detail', $product->slug) }}" class="component-products d-block">
                     <div class="products-thumbnail">
                         <div class="products-image"
-                            style="background-image: url('{{ Storage::url($product->galleries->first()->photos) }}')">
+                            style=" background-image: url('{{ Storage::url($product->galleries->first()->photos) }}')">
                         </div>
                     </div>
                     <div class="products-text">{{ $product->name }}</div>

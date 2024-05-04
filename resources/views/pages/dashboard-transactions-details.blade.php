@@ -52,10 +52,16 @@ Store Dashboard Product
                     <div class="col-12 col-md-6">
                       <div class="product-title mb-2">Total Harga</div>
                       <div class="product-subtitle">Rp. {{ number_format($transaction->price, 0, ',', '.') }}</div>
+                      {{$transaction->transaction->users_id}}
+                      </h1>
                     </div>
                     <div class="col-12 col-md-6">
                       <div class="product-title mb-2">Nomor Telepon</div>
                       <div class="product-subtitle">{{$transaction->transaction->user->phone_number}}</div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="product-title mb-2">Jumlah Produk</div>
+                      <div class="product-subtitle">{{$transaction->quantity}}</div>
                     </div>
                   </div>
                 </div>
@@ -102,11 +108,7 @@ Store Dashboard Product
                     <div class="col-12 col-md-6">
                       <div class="product-title mb-2">Kode POS</div>
                       <div class="product-subtitle">{{$transaction->transaction->user->zip_code}}</div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                      <div class="product-title mb-2">Negara</div>
-                      <div class="product-subtitle">{{$transaction->transaction->user->country}}</div>
-                    </div>
+                    </div>                    
                     <div class="col-12 col-md-6">
                       <div class="product-title mb-2">Status Pengiriman</div>                      
                       <div class="product-subtitle">{{$transaction->shipping_status}}</div>

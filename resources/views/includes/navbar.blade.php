@@ -57,16 +57,20 @@
         </div>
         
         </li>
+        
+        
         <li class="nav-item d-none d-lg-block">
           <a href="{{ route('cart') }}" class="nav-link d-inline-block">
             @php
-            $carts = \App\Models\Cart::where('users_id', Auth::user()->id)->count();
+            $carts = \App\Models\Cart::where('users_id', Auth::user()->id)->sum('quantity');
+            
+
             @endphp
             @if ($carts > 0)
-            <img src="images/icon-cart-empty.svg" alt="" class="" />
+            <img src="{{ asset('images/icon-cart-empty.svg') }}" alt="" class="" />
             <div class="card-badge">{{$carts}}</div>
             @else
-            <img src="images/icon-cart-empty.svg" alt="" class="" />
+            <img src="{{ asset('images/icon-cart-empty.svg') }}" alt="" class="" />
             @endif
           </a>
         </li>
@@ -80,3 +84,5 @@
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
   @csrf
 </form>
+
+

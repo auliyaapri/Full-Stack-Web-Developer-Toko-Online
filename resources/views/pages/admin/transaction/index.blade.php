@@ -23,7 +23,7 @@ Admin | Tranaction
                                 <table class="table table-hover scroll-horizontal-vertical w-100" id="crudTable">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>No</th>
                                             <th>Nama</th>
                                             <th>Harga</th>
                                             <th>Status</th>
@@ -32,6 +32,35 @@ Admin | Tranaction
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php $no = 1; @endphp
+                                        @foreach ($transactions as $tr)
+                                        <tr>                                            
+                                            <td>{{ $no++ }}</td>                                            
+                                            <td>{{$tr->user->name}}</td>
+                                            <td>{{$tr->total_price}}</td>
+                                            <td>{{$tr->transaction_status}}</td>
+                                            <td>{{$tr->user->created_at}}</td>
+                                            <td>        
+                                                <div class="btn-group">
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-bs-toggle="dropdown">
+                                                            Aksi
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <a href="{{ route('transaction.edit', $tr->id) }}" class="dropdown-item">
+                                                                Sunting
+                                                            </a>
+                                                            <form action="{{ route('transaction.destroy', $tr->id) }}" method="POST">
+                                                                @method('delete')
+                                                                @csrf
+                                                                <button type="submit" class="dropdown-item text-danger">Hapus</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>                                            
+                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -47,37 +76,7 @@ Admin | Tranaction
 
 @push('addon-script')
 <script>
-    let datatable = $('#crudTable').DataTable({
-        processing: true,
-        serverSide: true,
-        ordering: true,
-        ajax: {
-            url: '{!! url()->current() !!}',
-        },
-        columns: [            
-            {data: 'id', name: 'id'},            
-            {data: 'user.name', name: 'user.name'},                        
-            // {data: 'total_price', name: 'total_price'},    
-            { 
-                    data: 'total_price', 
-                    name: 'total_price',
-                    render: function(data) {
-                        return "Rp. " + number_format(data);
-                    }
-                },             
-            {data: 'transaction_status', name: 'transaction_status'},                 
-            {data: 'created_at', name: 'created_at'},                 
-      
-            {
-                data: 'action',
-                name: 'action',
-                orderable: false,
-                searchable: false,
-                width: '15%'
-            },
-        ]
-    });
-
+    
   // Fungsi number_format untuk menambahkan titik sebagai pemisah ribuan
   function number_format(number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
