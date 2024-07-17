@@ -1,14 +1,17 @@
 @extends('layouts.dashboard')
-
 @section('title')
-Store Dashboard Product
+    @php 
+        $user_name = $user->name;
+        $first_name = explode(' ', trim($user_name))[0];
+    @endphp
+    {{$first_name}} | Details Product
 @endsection
 
 @section('content')
  <!-- section-content -->
  <section class="section-content section-dashboard-home" data-aos="fade-up">
     <div class="container-fluid">
-      <div class="dashboard-heading">
+      <div class="dashboard-heading">        
         <h2 class="dashboard-title fw-bold">{{$products->name}}</h2>        
         <p class="dashboard-subtitle">Product <span class="text-muted">Details</span><p>
       </div>
@@ -92,10 +95,10 @@ Store Dashboard Product
               <div class="card-body">
                 <div class="row">
                   @foreach ($products->galleries as $gallery)
-                  <div class="col-md-4">
+                  <div class="col-md-4 mb-4">
                     <div class="gallery-container">
-                      <img src="{{Storage::url($gallery->photos ?? '' )}}" alt="" class="w-100">
-                      <a href="#" class="delete-gallery">
+                      <img src="{{Storage::url($gallery->photos ?? '' )}}" alt="" class="w-100">                      
+                        <a href="{{ route('dashboard-product-gallery-delete', $gallery->id) }}" class="delete-gallery">
                         <img src="/images/icon-delete.svg" alt="">
                       </a>
                     </div>

@@ -22,9 +22,5 @@ class LogoutController extends Controller
         return redirect('/');
     }
 
-    // protected function authenticated(Request $request, $user)
-    // {
-    //     Session::flash('success', 'Anda berhasil login.');
-    //     return redirect()->intended($this->redirectPath());
-    // }
+
 }

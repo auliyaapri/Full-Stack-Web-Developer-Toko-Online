@@ -1,8 +1,12 @@
 @extends('layouts.dashboard')
-
 @section('title')
-User | Dashboard
+    @php 
+        $user_name = $user->name;
+        $first_name = explode(' ', trim($user_name))[0];
+    @endphp
+    {{$first_name}} | Dashboard
 @endsection
+
 
 @section('content')
 <!-- Section Content -->

@@ -26,7 +26,7 @@ class DashboardController extends Controller
                                 $product->where('users_id', Auth::user()->id);
                             })->latest()->limit(5);
 
-                   
+                            $user = Auth::user();
     
         // Menghitung total pendapatan dari transaksi
         $revenue = $transactions->get()->reduce(function ($carry, $item) {
@@ -38,6 +38,8 @@ class DashboardController extends Controller
     
         // Mengembalikan view dashboard dengan data yang diperlukan
         return view('pages.dashboard', [
+            'user' => $user,
+
             'transaction_count' => $transactions->count(), // Jumlah transaksi
             'transaction_data' => $transactions->get(), // Data transaksi
             'revenue' => $revenue, // Pendapatan total

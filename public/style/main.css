@@ -62,7 +62,7 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: #fff;
+  background-color: #fff;  
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -9217,7 +9217,7 @@ footer p {
 }
 @media (max-width: 991.98px) {
   .navbar-store {
-    background: #fff !important;
+    background: white !important;
   }
 }
 @media (min-width: 992px) {
@@ -9455,7 +9455,8 @@ footer p {
   min-width: 100vw;
   min-height: 100vh;
 }
-.page-dashboard #sidebar-wrapper {
+.page-dashboard #sidebar-wrapper {  
+  
   margin-right: 60px;
   min-height: 100vh;
   margin-left: -80vw;
@@ -9477,9 +9478,10 @@ footer p {
 }
 .page-dashboard .navbar-store {
   margin-top: 0;
-  background: #f5f5fb;
+  background: #f5f5fb;  /* 992PX  */
   box-shadow: 0px 4px 5px #cacad1;
 }
+
 @media (min-width: 768px) {
   .page-dashboard .navbar-store {
     background-color: transparent;
@@ -9496,12 +9498,54 @@ footer p {
   border-right: 4px solid #FF7158;
   color: #0C0D36;
 }
+
+/* @media (max-width: 768px) {
+  .page-dashboard #page-content-wrapper {
+    background: blue;
+    padding-left: ;
+    min-width: 100vw;
+    min-height: 100vh;
+  }
+} */
+
+@media (max-width: 991.98px) {
+  .page-dashboard #sidebar-wrapper {
+    margin-top: 80px !important;    
+  }
+  .page-dashboard #page-content-wrapper {
+    margin-top: 80px;
+    min-width: 0;
+    width: 100%;    
+    background: #f5f5fb;
+    
+  }
+
+}
+
+
+@media(max-width:768px){
+  
+  .page-dashboard #sidebar-wrapper {
+    margin-left: 0;
+    margin-top: 0px;
+  }
+  .page-dashboard #page-content-wrapper {    
+    min-width: 0;
+    width: 100%;
+  }
+  .page-dashboard #wrapper.toggled #sidebar-wrapper {
+    margin-left: -18rem;
+  }
+}
+
+
+
 @media (min-width: 768px) {
   .page-dashboard #sidebar-wrapper {
     margin-left: 0;
     margin-top: 0px;
   }
-  .page-dashboard #page-content-wrapper {
+  .page-dashboard #page-content-wrapper {    
     min-width: 0;
     width: 100%;
   }
@@ -9509,21 +9553,36 @@ footer p {
     margin-left: -15rem;
   }
 }
+
 .page-dashboard .section-content {
   margin-top: 10vh;
 }
+
 @media (min-width: 768px) {
   .page-dashboard .section-content {
     margin-top: 2rem;
-    margin-left: 20px;
+    margin-left: 20px;    
   }
 }
+
+
 .page-dashboard .section-content h5 {
   font-weight: 500;
   font-size: 18px;
   line-height: 27px;
   color: #0C0D36;
 }
+
+@media (min-width: 991px) {
+  .page-dashboard .section-content .dashboard-title {
+    margin-top: 5rem;
+    font-weight: normal;
+    font-size: 29px;
+    line-height: 36px;
+    color: #0C0D36;
+  }
+}
+
 .page-dashboard .section-content .dashboard-title {
   font-weight: normal;
   font-size: 29px;

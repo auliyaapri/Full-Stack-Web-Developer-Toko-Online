@@ -5,3 +5,4 @@
 
 {{-- <link href="style/main.css" rel="stylesheet"> --}}
 <link href="{{ url('style/main.css') }}" rel="stylesheet">
+

@@ -46,12 +46,7 @@ class DetailController extends Controller
 
         
         $data = $request->all();
-        // dd($data);
-        //  $data = [
-        //   'products_id' => $id,
-        //   'users_id' => Auth::user()->id,
-        //   'quantity' => 1
-        //  ];
+        
          Cart::create($data);
          return redirect()->route('cart');
      }

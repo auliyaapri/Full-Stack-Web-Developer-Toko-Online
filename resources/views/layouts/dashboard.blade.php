@@ -14,6 +14,7 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link href="/style/main.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.min.css" integrity="sha512-OWGg8FcHstyYFwtjfkiCoYHW2hG3PDWwdtczPAPUcETobBJOVCouKig8rqED0NMLcT9GtE4jw6IT1CSrwY87uw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   @stack('addon-style')
   <style>
     .carousel-inner .carousel-item {
@@ -25,7 +26,7 @@
 <body>
   <div class="page-dashboard">
     <div class="d-flex" id="wrapper" data-aos="fade-right">
-      <!-- sidebar -->
+      <!-- sidebar dsdsd-->
       <div class="border-right" id="sidebar-wrapper">
         <div class="sidebar-heading text-center">
           <img src="/images/logo2.png" alt="" style="max-width: 150px">
@@ -63,9 +64,8 @@
         {{-- === Navbar === --}}
         <nav class="navbar navbar-expand-lg navbar-light navbar-store fixed-top" data-aos="fade-down">
           <div class="container-fluid">
-            <button class="btn btn-secondary d-md-none me-auto me-2" id="menu-toggle">
-              &laquo; Menu
-            </button>
+            <button class="btn btn-secondary d-md-none me-auto me-2" id="menu-toggle"> &laquo; Menu </button>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
               aria-label="Toggle navigation">
@@ -144,6 +144,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.min.js" integrity="sha512-FbWDiO6LEOsPMMxeEvwrJPNzc0cinzzC0cB/+I2NFlfBPFlZJ3JHSYJBtdK7PhMn0VQlCY1qxflEG+rplMwGUg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
     AOS.init();
   </script>

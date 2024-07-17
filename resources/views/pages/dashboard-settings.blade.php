@@ -1,7 +1,10 @@
 @extends('layouts.dashboard')
-
 @section('title')
-User | Settings
+    @php 
+        $user_name = $user->name;
+        $first_name = explode(' ', trim($user_name))[0];
+    @endphp
+    {{$first_name}} | Settings
 @endsection
 
 @section('content')
@@ -22,7 +25,7 @@ User | Settings
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="">Nama Toko</label>
+                                            <label for="">Store Name</label>
                                             <input type="text" class="form-control" name="store_name"
                                                 value="{{$user->store_name}}" />
                                         </div>
@@ -39,7 +42,7 @@ User | Settings
 
                                             <div id="transactionDetails">
                                                 <select name="categories_id" class="form-control" v-model="categories">
-                                                    <option value="{{ $user->categories_id }}">Tidak diganti</option>
+                                                    <option value="{{ $user->categories_id }}">Not changed</option>
                                                     @foreach ($category as $categor)
                                                     <option value="{{ $categor->id }}">{{ $categor->name }}</option>
                                                     @endforeach
@@ -50,32 +53,28 @@ User | Settings
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Store</label>
-                                            <p class="text-muted">Apakah anda juga ingin membuka toko?</p>
+                                            <p class="text-muted">Do you also want to open a store?</p>
                                             <div class="d-flex w-100">
-                                                <!-- Jika True -->
+                                                <!-- If True -->
                                                 <div class="custom-control cutom-radio custom-control-inline p-0 m-0">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="store_status"
-                                                            id="openStoreTrue" value="1" {{ $user->store_status == 1 ?
-                                                        'checked' : '' }}>
+                                                        <input class="form-check-input" type="radio" name="store_status" id="openStoreTrue" value="1" {{ $user->store_status == 1 ? 'checked' : '' }}>
                                                         <label class="form-check-label" for="openStoreTrue">
-                                                            Buka
+                                                            Open
                                                         </label>
                                                     </div>
                                                 </div>
-
-                                                <!-- Jika False -->
+                                            
+                                                <!-- If False -->
                                                 <div class="custom-control cutom-radio custom-control-inline ps-3 m-0">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="store_status"
-                                                            id="openStoreFalse" value="0" {{ $user->store_status == 0 ||
-                                                        $user->store_status == NULL ? 'checked' : '' }}>
+                                                        <input class="form-check-input" type="radio" name="store_status" id="openStoreFalse" value="0" {{ $user->store_status == 0 || $user->store_status == NULL ? 'checked' : '' }}>
                                                         <label class="form-check-label" for="flexRadioDefault1">
-                                                            Sementara, Tutup
+                                                            Temporary, Closed
                                                         </label>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>                                            
                                         </div>
                                     </div>
 

@@ -13,14 +13,14 @@ Register
             <div class="container">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-md-10 pt-4">
-                        <h3>Register to <strong>WigunaStore</strong></h3>
-                        <p class="mb-4 text-dark">Segera Registrasi untuk Mulai Menikmati Berbagai Penawaran Menarik di WigunaStore.</p>
+                        <h3>Register to <strong>Wiguna Online Store</strong></h3>                        
+                        <p class="mb-4 text-dark">Segera Registrasi untuk Mulai Menikmati Berbagai Penawaran Menarik di Wiguna Online Store.</p>
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Nama Lengkssap</label>
+                                        <label>Nama Lengkap</label>
                                         <input v-model="name" id="name" type="text"
                                             class="form-control @error('name') is-invalid @enderror" name="name"
                                             value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -49,14 +49,9 @@ Register
                                 <div class="col-md-6">
                                     <div class="form-group last mb-3">
                                         <label for="password">Password</label>
-                                        <input type="password" id="password"
+                                        <input type="password"
                                             class="form-control @error('password') is-invalid @enderror" name="password"
-                                            required autocomplete="current-password">
-                                        @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
+                                            required autocomplete="current-password" id="password"> 
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -65,11 +60,12 @@ Register
                                         <input id="password_confirmation" type="password"
                                             class="form-control @error('password_confirmation') is-invalid @enderror"
                                             name="password_confirmation" required autocomplete="new-password">
-                                        @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="checkbox" onclick="myFunction()" class="mt-3">
+                                        <span class="pl-2">Show Password</span>
                                     </div>
                                 </div>
                                 {{-- Buka Toko --}}
@@ -115,8 +111,7 @@ Register
                                         <select name="categories_id" class="form-control">
                                             <option value="" disabled>Select Category</option>
                                             @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }} || {{
-                                                $category->id }}</option>
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -134,6 +129,19 @@ Register
 </div>
 @endsection
 
+<script>
+    function myFunction() {
+        var password = document.getElementById("password");
+        var confirmPassword = document.getElementById("password_confirmation");
+        if (password.type === "password") {
+            password.type = "text";
+            confirmPassword.type = "text";
+        } else {
+            password.type = "password";
+            confirmPassword.type = "password";
+        }
+    }
+</script>
 
 @push('addon-script')
 
@@ -156,8 +164,8 @@ Register
         },
         data() {
             return {
-                name: 'Auliya apriwiguna',
-                email: 'ssd@gmail.com',
+                name: '',
+                email: '',
                 is_store_open: true,
                 store_name: "",
                 email_unavailable: false
@@ -169,31 +177,21 @@ Register
                         params: {
                             email: this.email
                         }
-                        
                     })
-                // axios.get('https://6d61-2400-9800-6036-341-f037-8046-f695-b237.ngrok-free.app/api-register-check', {
-                //     params: {
-                //         email: this.email
-                //     }
-                // })
-
                     .then(response => {
                         const message = response.data === 'Available' ? 'Email anda tersedia! Silahkan lanjut langkah selanjutnya!' : 'Maaf, tampaknya email sudah terdaftar pada sistem kami.';
-                        // Menentukan jenis toast berdasarkan respons dari server
                         const type = response.data === 'Available' ? 'success' : 'error';
                         this.email_unavailable = response.data !== 'Available';
-                        // Menampilkan data respons pada konsol browser
                         console.log(response.data);
-                        // Menampilkan alert dengan data respons dengan penundaan
                         setTimeout(() => {
                             Swal.fire({
                                 title: 'Informasi',
                                 text: message,
-                                icon: type, // Success atau Error
-                                showConfirmButton: false, // Menghilangkan tombol OK
-                                timer: 5000 // Menampilkan alert selama 5 detik
+                                icon: type,
+                                showConfirmButton: false,
+                                timer: 5000
                             });
-                        }, 0); // Menunda alert selama 2 detik sebelum ditampilkan
+                        }, 0);
                     })
                     .catch(error => {
                         console.log(error);

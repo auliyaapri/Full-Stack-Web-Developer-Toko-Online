@@ -41,8 +41,7 @@ class CheckoutController extends Controller
             'users_id' => Auth::user()->id,
             'insurence_price' => 0,
             'shipping_price' => 0,
-            'total_price' => $request->total_price,
-            
+            'total_price' => $request->total_price,            
             'transaction_status' => 'PENDING',
             'code' => $code
         ]);

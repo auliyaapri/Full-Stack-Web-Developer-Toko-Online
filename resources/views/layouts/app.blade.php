@@ -2,11 +2,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    {{-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> --}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     {{-- Ini kalau dengan ngrok --}}
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+    {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">  --}}
     
     <title>@yield('title')</title>
     <link rel="icon" type="image/x-icon" href="/images/img_title.png">
@@ -47,3 +48,4 @@
 </body>
 
 </html>
+

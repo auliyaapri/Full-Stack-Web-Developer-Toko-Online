@@ -17,6 +17,7 @@ class DashboardTransactionController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         // Untuk penjual melihat produk apa saja yang sudah terjual
         $sellTransactions = TransactionDetail::with(['transaction.user', 'product.galleries'])
             ->whereHas('product', function ($product) {
@@ -34,6 +35,7 @@ class DashboardTransactionController extends Controller
 
 
         return view('pages.dashboard-transactions', [
+            'user' => $user,
             'sellTransactions' => $sellTransactions,
             'buyTransactions' => $buyTransaction
         ]);
@@ -45,9 +47,9 @@ class DashboardTransactionController extends Controller
 
 
         // Memeriksa apakah pengguna yang terautentikasi sama dengan pengguna yang terkait dengan transaksi
-        if ($transaction->transaction->users_id !== Auth::user()->id) {
-            abort(403); // Jika tidak sama, kembalikan respons 403 (Forbidden)
-        }
+        // if ($transaction->transaction->users_id !== Auth::user()->id) {
+        //     abort(403); // Jika tidak sama, kembalikan respons 403 (Forbidden)
+        // }
         
         // $review = Review::where('users_id', Auth::user()->id)->where('transactions_id', $transaction->id)->first();
         $review = Review::where('users_id', Auth::user()->id)->where('transactions_id', $transaction->transaction->id)->first();

@@ -1,7 +1,12 @@
 @extends('layouts.dashboard')
 
 @section('title')
-User | Account
+    @php 
+        $user_name = $user->name;
+        $first_name = explode(' ', trim($user_name))[0];
+    @endphp
+
+    {{$first_name}} | Account
 @endsection
 
 @section('content')
@@ -40,7 +45,7 @@ User | Account
                                     <!-- Alamat -->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="addressOne">Alamat 1</label>
+                                            <label for="addressOne">Alamat</label>
                                             <input type="text" class="form-control" id="addressOne" name="address_one"
                                                 value="{{$user->address_one}}">
 
@@ -48,7 +53,7 @@ User | Account
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="addressTwo">Alamat 2</label>
+                                            <label for="addressTwo">Alamat Tambahan</label>
                                             <input type="text" class="form-control" id="addressTwo" name="address_two"
                                                 value="{{$user->address_two}}">
                                         </div>
@@ -127,7 +132,7 @@ User | Account
                                 </div>
                     </form>
 
-
+                    
                     @if ($user->image_profile != NULL)
                     <form action="{{ route('dashboard-settings-account.destroy', $user->id) }}" method="POST">
                         @csrf
@@ -152,7 +157,40 @@ User | Account
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 
+{{-- ================== SWEET ALERT ======================== --}}
+
+@if (Session::has('success_edit_account'))
 <script>
+    // Fungsi untuk menampilkan Sweet Alert saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses!',
+            text: '{{ session('success_edit_account') }}',
+            showConfirmButton: false,
+            timer: 3000
+        });
+    });
+</script>
+@endif
+
+@if (Session::has('success_edit_account'))
+<script>
+    // Fungsi untuk menampilkan Sweet Alert saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses!',
+            text: '{{ session('success_edit_account') }}',
+            showConfirmButton: false,
+            timer: 3000
+        });
+    });
+</script>
+@endif
+{{-- ================== SWEET ALERT ========================  --}}
+<script>
+
     var locations = new Vue({
         el: "#locations",
         mounted() {

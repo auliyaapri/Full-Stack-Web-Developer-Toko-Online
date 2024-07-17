@@ -27,8 +27,8 @@
 <body>
   
   <div class="page-dashboard">
-    <div class="d-flex" id="wrapper" data-aos="fade-right">
-      <!-- sidebar -->
+    <div class="d-flex bacot" id="wrapper" data-aos="fade-right">      
+      <!-- sidebar sdsddsdsd-->
       <div class="border-right" id="sidebar-wrapper">
         <div class="sidebar-heading text-center">
           <img src="/images/logo2.png" alt="" class="" style="max-width: 150px">

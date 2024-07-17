@@ -23,10 +23,10 @@ Home
                                 <img src="/images/banner.jpg" class="d-block w-100" alt="Carousel Image">
                             </div>
                             <div class="carousel-item">
-                                <img src="/images/banner.jpg" class="d-block w-100" alt="Carousel Image">
+                                <img src="/images/banner2.png" class="d-block w-100" alt="Carousel Image">
                             </div>
                             <div class="carousel-item">
-                                <img src="/images/banner.jpg" class="d-block w-100" alt="Carousel Image">
+                                <img src="/images/banner3.png" class="d-block w-100" alt="Carousel Image">
                             </div>
                         </div>
                     </div>
@@ -109,18 +109,21 @@ Home
 </section>
 <!-- END STORE NEW PRODUCT -->
 @if (Session::has('success'))
-<script>
-    // Fungsi untuk menampilkan Sweet Alert saat halaman dimuat
-    document.addEventListener('DOMContentLoaded', function() {
-        Swal.fire({
-            icon: 'success',
-            title: 'Sukses!',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 3000
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 3000
+            }).then(function() {
+                @php
+                    Session::forget('success');
+                @endphp
+            });
         });
-    });
-</script>
+    </script>
 @endif
 
 

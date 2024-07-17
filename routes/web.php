@@ -43,8 +43,7 @@ Route::get('/details/{id}', [App\Http\Controllers\DetailController::class, 'inde
 Route::post('/details/{id}', [App\Http\Controllers\DetailController::class, 'add'])->name('detail-add');
 // === CHECKOUT ===
 // Route::post('/midtrans-callback', [App\Http\Controllers\CheckoutController::class, 'callback']);
-
-// Route::post('/checkout/callback', [App\Http\Controllers\CheckoutController::class, 'callback'])->name('midtrans-callback');
+Route::post('/checkout/callback', [App\Http\Controllers\CheckoutController::class, 'callback'])->name('midtrans-callback');
 
 Route::get('/success', [App\Http\Controllers\CartController::class, 'success'])->name('success');
 
@@ -66,7 +65,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Rute untuk tampilan produk di dasbor
     Route::get('/dashboard/products', [App\Http\Controllers\DashboardProductController::class, 'index'])->name('dashboard-product');
+    
     Route::get('/dashboard/products/create', [App\Http\Controllers\DashboardProductController::class, 'create'])->name('dashboard-products-create');
+
     Route::post('/dashboard/products', [App\Http\Controllers\DashboardProductController::class, 'store'])->name('dashboard-products-store');
     Route::get('/dashboard/products/{id}', [App\Http\Controllers\DashboardProductController::class, 'details'])->name('dashboard-products-details');
     Route::post('/dashboard/products/{id}', [App\Http\Controllers\DashboardProductController::class, 'update'])->name('dashboard-products-update');

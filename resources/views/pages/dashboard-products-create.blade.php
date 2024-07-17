@@ -1,11 +1,17 @@
 @extends('layouts.dashboard')
-
 @section('title')
-Store Dashboard Product
+@php
+$user_name = $user->name;
+$first_name = explode(' ', trim($user_name))[0];
+@endphp
+{{$first_name}} | New Product
 @endsection
+
 
 @section('content')
 <!-- section-content -->
+
+
 <section class="section-content section-dashboard-home" data-aos="fade-up">
     <div class="container-fluid">
         <div class="dashboard-heading">
@@ -26,13 +32,13 @@ Store Dashboard Product
                                         <!-- Name and email -->
                                         <div class="form-group">
                                             <label for="addressOne">Product Name</label>
-                                            <input type="text" class="form-control" id="name" name="name">
+                                            <input type="text" class="form-control" id="name" name="name" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="addressOne">Price</label>
-                                            <input type="number" class="form-control" id="price" name="price">
+                                            <input type="number" class="form-control" id="price" name="price" required>
                                         </div>
                                     </div>
                                     <!-- Category -->
@@ -51,29 +57,32 @@ Store Dashboard Product
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="quantity">Quantity</label>
-                                                <input type="number" class="form-control" name="quantity">
+                                            <input type="number" class="form-control" name="quantity">
                                         </div>
                                     </div>
-                                    <!-- DESCRIPTION -->                                
+                                    <!-- DESCRIPTION -->
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="city">Description</label>
                                             <div class="form-floating">
-                                                <!-- <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                                style="height: 100px"></textarea> -->
                                                 <textarea name="description" id="editor" rows="10" cols="80"></textarea>
                                             </div>
                                         </div>
                                     </div>
+                                    {{-- UPLOAD GAMBAR --}}
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <div class="mb-3">
                                                 <label for="imageUpload" class="form-label">Choose Image</label>
-                                                <input type="file" class="form-control" id="imageUpload"
-                                                    name="photo" accept="image/*">
-                                                    
+                                                <input type="file" class="form-control" id="imageUpload" name="photo"
+                                                    accept="image/*" required>
+
                                             </div>
                                         </div>
+                                        @error('photo')
+                                        <div class="text-danger fw-bold">{{ $message }}</div>
+                                    @enderror
+                                    
                                     </div>
                                 </div>
                                 <div class="row">
@@ -100,10 +109,10 @@ Store Dashboard Product
 @push('addon-script')
 
 <!-- CKN EDITOR -->
-    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.0/classic/ckeditor.js"></script>
-    <!-- Ketika klik Add Photo maka akan ada muncul upload gambar gitu padahalan button ya gaes ya -->
-    <script>
-        ClassicEditor
+<script src="https://cdn.ckeditor.com/ckeditor5/35.0.0/classic/ckeditor.js"></script>
+<!-- Ketika klik Add Photo maka akan ada muncul upload gambar gitu padahalan button ya gaes ya -->
+<script>
+    ClassicEditor
                 .create( document.querySelector( '#editor' ) )
                 .then( editor => {
                         console.log( editor );
@@ -115,4 +124,3 @@ Store Dashboard Product
 <!-- END CKN EDITOR -->
 
 @endpush
-

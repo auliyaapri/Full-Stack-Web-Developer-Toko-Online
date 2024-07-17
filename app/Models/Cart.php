@@ -17,9 +17,6 @@ class Cart extends Model
     protected $hidden = [
         
     ];
-    // public function user(){
-    //     return $this->hasOne( User::class, 'id', 'users_id');
-    // }
     public function product()
     {
         return $this->hasOne(Product::class, 'id', 'products_id'); //  artiny hasOne setiap keranjang memiliki 1 produk atau banyak produk
@@ -27,7 +24,7 @@ class Cart extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'users_id', 'id'); //  artiny hasOne setiap keranjang memiliki 1 produk atau banyak produk
+        return $this->belongsTo(User::class, 'users_id', 'id'); // 
         
     }
 }

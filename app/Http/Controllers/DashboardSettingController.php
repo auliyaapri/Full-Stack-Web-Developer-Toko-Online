@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Regency;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 
 class DashboardSettingController extends Controller
 {
@@ -36,7 +38,8 @@ class DashboardSettingController extends Controller
     
 
 
-    public function destroy($id)
+    public function destroy(Request $request, $redirect)
+    // public function update(Request $request, $redirect)
     {
         $user = Auth::user();
 
@@ -45,12 +48,19 @@ class DashboardSettingController extends Controller
         $user->image_profile = null;
         $user->save();
 
+        Session::flash('success_edit_account', 'Akun berhasil di update!');
+        
         return redirect()->route('dashboard-settings-account');
+        
 
     }
 
     public function update(Request $request, $redirect)
     {
+        $request->validate([
+            'image_profile' => 'nullable|file|mimes:jpg,jpeg,png|max:2048', // 2MB max size
+        ]);
+
         $data = $request->all();
         $item = Auth::user();
 
@@ -58,7 +68,10 @@ class DashboardSettingController extends Controller
             $data['image_profile'] = $request->file('image_profile')->store('assets/image_profile', 'public');
         }
 
+
         $item->update($data);
+        Session::flash('success_edit_account', 'Akun berhasil di update!');
+
 
         return redirect()->route($redirect);
     }

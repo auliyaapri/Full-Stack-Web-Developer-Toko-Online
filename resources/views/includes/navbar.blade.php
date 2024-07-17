@@ -42,10 +42,15 @@
 
           </a>
           <div class="dropdown-menu">
-            <a href="{{ route('dashboard') }}" class="dropdown-item"><i class="fa fa-dashboard"></i> Dashboard</a>
             @if (Auth::user()->roles == "Admin" ) 
             <a href="{{ route('admin-dashboard') }}" class="dropdown-item"><i class="fa fa-cogs"></i> Dashboard Admin</a>
             @endif
+
+            @if (Auth::user()->roles !== "Admin" ) 
+            <a href="{{ route('dashboard') }}" class="dropdown-item"><i class="fa fa-dashboard"></i> Dashboard</a>
+            @endif
+
+
             
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

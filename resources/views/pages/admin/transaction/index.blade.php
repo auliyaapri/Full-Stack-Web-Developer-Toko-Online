@@ -36,10 +36,12 @@ Admin | Tranaction
                                         @foreach ($transactions as $tr)
                                         <tr>                                            
                                             <td>{{ $no++ }}</td>                                            
-                                            <td>{{$tr->user->name}}</td>
+                                            {{-- <td>{{$tr->user->name}}</td> --}}
+                                            <td>{{ $tr->user ? $tr->user->name : 'User tidak ditemukan' }}</td>
+
                                             <td>{{$tr->total_price}}</td>
                                             <td>{{$tr->transaction_status}}</td>
-                                            <td>{{$tr->user->created_at}}</td>
+                                            {{-- <td>{{$tr->user->created_at}}</td> --}}
                                             <td>        
                                                 <div class="btn-group">
                                                     <div class="dropdown">

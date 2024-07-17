@@ -1,8 +1,14 @@
 @extends('layouts.dashboard')
 
 @section('title')
-User | Products
+@php
+    $user_name = $user->name;
+    $first_name = explode(' ', $user_name)[0];
+@endphp
+
+{{ $first_name }} | Product
 @endsection
+
 
 @section('content')
 <!-- section-content -->
@@ -16,9 +22,20 @@ User | Products
         <div class="dashboard-content">
             <div class="row">
                 <!-- Button -->
+                @if ($user->store_name == NULL|| $user->provinces_id == NULL)
+                <div class="col-12">
+                    <div class="alert alert-warning" role="alert">
+                        Anda harus <strong> membuat store & melengkapi data diri </strong> terlebih terlebih dahulu sebelum menambahkan product!
+                    </div>                    
+                    <a href="{{route('dashboard-products-create')}}" class="btn btn-success disabled" role="button" aria-disabled="true">Add New Products</a>
+
+                @else
                 <div class="col-12">
                     <a href="{{route('dashboard-products-create')}}" class="btn btn-success">Add New Products</a>
                 </div>
+                    
+                @endif
+     
             </div>
             <!-- Content Products -->
             <div class="row mt-4">
@@ -38,4 +55,35 @@ User | Products
         </div>
     </div>
 </section>
+<!-- END STORE NEW PRODUCT -->
+@if (Session::has('success'))
+<script>
+    // Fungsi untuk menampilkan Sweet Alert saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses!',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 3000
+        });
+    });
+</script>
+@endif
+
+@if (Session::has('success_edit_products'))
+<script>
+    // Fungsi untuk menampilkan Sweet Alert saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses!',
+            text: '{{ session('success_edit_products') }}',
+            showConfirmButton: false,
+            timer: 3000
+        });
+    });
+</script>
+@endif
 @endsection
+

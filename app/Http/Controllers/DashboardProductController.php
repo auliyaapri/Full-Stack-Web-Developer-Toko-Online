@@ -9,6 +9,7 @@ use App\Models\ProductGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 
@@ -19,11 +20,15 @@ class DashboardProductController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         $products = Product::with(['galleries', 'category'])
         ->where('users_id', Auth::user()->id)
         ->get();
         return view('pages.dashboard-products',[
-            'products' => $products
+            'user' => $user,
+            'products' => $products,
+            'user' => $user
+
         ]);
     }
    
@@ -55,41 +60,47 @@ class DashboardProductController extends Controller
     public function details(Request $request, $id)
     {
         $products = Product::with(['user', 'galleries', 'category'])->findOrFail($id);
-        
-
+        $user = Auth::user();
         $categories = Category::all();
         return view('pages.dashboard-products-details', [
+            'user' => $user,
             'products' => $products,
             'categories' => $categories
         ]);
+                
+
     }
     
     public function create()
     {
         $categories = Category::all();
+        $user = Auth::user();
         return view('pages.dashboard-products-create',[
-            'categories' => $categories
+            'categories' => $categories,
+            'user' => $user
         ]);
     }
+
     
 
     public function store(ProductRequest $request)
     {
         $data = $request->all();
         $data['slug'] = Str::slug($request->name);
-
+    
         $product = Product::create($data);
-
+    
         $gallery = [
             'products_id' => $product->id,
-            'photos' => $request->file('photo')->store('assets/product','public')
-            
-
+            'photos' => $request->file('photo')->store('assets/product', 'public')
         ];
         ProductGallery::create($gallery);
+                
+        Session::flash('success', 'Produk berhasil ditambahkan.');
+        
         return redirect()->route('dashboard-product');
     }
-
+    
 
     public function update(ProductRequest $request, $id)
     {
@@ -97,6 +108,8 @@ class DashboardProductController extends Controller
         $item = Product::findOrFail($id); // Menggunakan $id sebagai parameter
         $data['slug'] = Str::slug($request->name);
         $item->update($data); // Menyimpan perubahan data
+        Session::flash('success_edit_products', 'Produk berhasil di ubah!.');
+
         return redirect()->route('dashboard-product');
     }
 

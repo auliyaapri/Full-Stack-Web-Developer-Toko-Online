@@ -80,7 +80,7 @@ Store Dashboard Product
                       <div class="product-subtitle">{{$transaction->transaction->user->address_one}}</div>
                     </div>
                     <div class="col-12 col-md-6">
-                      <div class="product-title mb-2">Alamat 2</div>
+                      <div class="product-title mb-2">Alamat Tambahan </div>
                       <div class="product-subtitle">{{$transaction->transaction->user->address_two}}</div>
                     </div>
                   </div>
@@ -155,7 +155,7 @@ Store Dashboard Product
                 <!-- End jika yang punya toko -->
 
                 {{-- Jika CUSTOMER NAME BEDA DENGAN YANG SEKARANG LOGIN --}}
-                @if ((Auth::user()->name == $transaction->transaction->user->name))
+                @if ((Auth::user()->name == $transaction->transaction->user->name && $transaction->shipping_status == "SUCCESS"))
                   @if ($review && $review->rating !== null)
                   <form action="{{ route('dashboard-review-update', $transaction->transaction->id) }}" method="POST"
                     class="g-0" enctype="multipart/form-data">

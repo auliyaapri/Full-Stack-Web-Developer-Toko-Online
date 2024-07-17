@@ -26,7 +26,9 @@ class ProductRequest extends FormRequest
             'users_id' => 'required|integer|exists:users,id',
             'categories_id' => 'required|integer|exists:categories,id',
             'price' => 'required|integer',
-            'description' => 'required'
+            'description' => 'required',
+            'photo' => 'nullable|image|max:3072', // 3MB = 3072KB
+            'photos' => 'nullable|image|max:3072', // Untuk uploadGallery
         ];
     }
 }

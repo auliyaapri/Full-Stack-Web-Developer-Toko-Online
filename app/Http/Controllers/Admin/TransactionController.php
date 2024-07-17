@@ -23,7 +23,11 @@ class TransactionController extends Controller
     
     public function index()
     {
-        $transactions = Transaction::with(['user'])->get();
+        // $transactions = Transaction::with(['user'])->get();
+        $transactions = Transaction::with(['user' => function ($query) {
+            $query->withTrashed();
+        }])->get();
+        
         return view('pages.admin.transaction.index',[
             'transactions' => $transactions
         ]);

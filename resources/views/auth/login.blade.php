@@ -14,8 +14,8 @@ Login
         <img src="" alt="">
         <div class="col-md-7">
 
-          <h3>Login to <strong>WigunaStore</strong></h3>
-          <p class="mb-4 text-dark">Silakan login untuk mulai menikmati berbagai penawaran menarik di WigunaStore.</p>
+          <h3>Login to <strong>Wiguna Online Store</strong></h3>
+          <p class="mb-4 text-dark">Silakan login untuk mulai menikmati berbagai penawaran menarik di Wiguna Online Store.</p>
           <form action="{{route('login')}}" method="POST" class="mt-3">
             @csrf
             <div class="form-group first">
@@ -31,8 +31,10 @@ Login
 
             <div class="form-group last mb-3">
               <label for="password">Password</label>
-              <input type="password" id="password" class="form-control @error('password') is-invalid @enderror"
-                name="password" required autocomplete="current-password">
+              <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"
+                required autocomplete="current-password" id="myInput">
+              <input type="checkbox" onclick="myFunction()" class="mt-3"><span class="pl-2">Show Password</span>
+
               @error('password')
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -52,3 +54,15 @@ Login
   </div>
 </div>
 @endsection
+
+
+<SCript>
+  function myFunction() {
+var x = document.getElementById("myInput");
+if (x.type === "password") {
+  x.type = "text";
+} else {
+  x.type = "password";
+}
+}
+</SCript>
