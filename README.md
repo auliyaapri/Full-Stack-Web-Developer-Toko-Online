@@ -8,9 +8,7 @@ Aplikasi ini dapat langsung digunakan dan dioperasikan secara online maupun offl
 ## 💻 Demo Website
 ![Dark Grey Minimalist Photo Travel YouTube Thumbnail](https://github.com/user-attachments/assets/b627d8fa-8f73-4d33-90c6-7993813f6857)
 
-
-
-[https://www.youtube.com/watch?v=wdxuAd8G5-I](https://youtu.be/A09ZeP8lyEg)
+[![Tonton di YouTube](https://img.shields.io/badge/Tonton%20di%20YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=A09ZeP8lyEg)
 
 
 ## 🚀 Tech Stack Used
