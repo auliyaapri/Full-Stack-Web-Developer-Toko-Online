@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     {{-- Ini kalau dengan ngrok --}}
-    {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">  --}}
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
     
     <title>@yield('title')</title>
     <link rel="icon" type="image/x-icon" href="/images/img_title.png">

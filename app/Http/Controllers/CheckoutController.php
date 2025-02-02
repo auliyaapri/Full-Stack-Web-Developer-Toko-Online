@@ -149,16 +149,6 @@ class CheckoutController extends Controller
         $hashed = hash("sha512", $request->order_id . $request->status_code . $request->gross_amount . $serverKey);
 
         if ($hashed == $request->signature_key) {
-            // if($request->transaction_status == 'capture'){
-            //     $transaction = Transaction::where('code', $request->order_id)->first();
-
-            //     if ($transaction) {
-            //         $transaction->update(['transaction_status' => 'SUCCESS']);
-            //     } else {
-        //         
-            //         error_log("Transaction not found: " . $request->order_id);
-            //     }
-            // }
             if ($request->transaction_status == 'capture' || $request->transaction_status == 'settlement') {
                 $transaction = Transaction::where('code', $request->order_id)->first();
 

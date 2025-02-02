@@ -11,7 +11,7 @@
     {{-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> --}}
 
     {{-- Ini kalau dengan ngrok --}}
-    {{-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">  --}}
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
     
     <link rel="icon" type="image/x-icon" href="/images/img_title.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">      

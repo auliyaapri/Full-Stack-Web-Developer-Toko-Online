@@ -95,12 +95,22 @@ Product Details
                 {{-- product id --}}
                 <input type="hidden" class="form-control" value="{{$products->id}}" name="products_id">
 
-                @if ($products->quantity > 0)
+                @if ($products->quantity > 0 )
                 <div class="d-flex">
                   <input type="number" class="form-control mb-3 w-25 me-2" id="quantity" name="quantity" required
                     min="1" max="{{ $products->quantity }}">
-                  <button type="submit" class="btn btn-success text-white btn-block mb-3 w-100" id="submit-btn">Add to
-                    Cart</button>
+
+                    @if (Auth::check() && Auth::user()->roles == "Admin" )
+                        <a class="btn btn-success text-white btn-block mb-3 w-100" id="submit-btn" href="{{{ route('product.edit', $products->id) }}}" >Detail Barang</a>
+                    @endif
+                    @if (Auth::check() && Auth::user()->roles == "USER" )
+                        <button type="submit" class="btn btn-success text-white btn-block mb-3 w-100" id="submit-btn">Add to Cart</button>
+                    @endif
+                    @if (!Auth::check() )
+                        <button type="submit" class="btn btn-success text-white btn-block mb-3 w-100" id="submit-btn">DSADSADSA to Cart</button>
+                    @endif
+                  
+
                 </div>
                 <div id="error-message" class="text-danger" style="display:none;">Stok hanya {{ $products->quantity }}
                 </div>
